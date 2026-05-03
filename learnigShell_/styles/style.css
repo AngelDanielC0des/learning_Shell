@@ -1,0 +1,1479 @@
+/* 
+=============================================================================
+ EL GRAN GLOSARIO PEDAGÓGICO: FUNDAMENTOS DE CSS
+=============================================================================
+[🇺🇸 Etimología: 'Cascading Style Sheets' -> 🇪🇸 Hojas de Estilo en Cascada].
+CSS separa el contenido (HTML) de su presentación visual. Mientras HTML define 
+la estructura semántica, CSS dicta las reglas de diseño, color y composición geométrica.
+
+Tu vocabulario básico:
+
+1. SELECTOR (El Objetivo): Es a quién quieres apuntar.
+   [🇺🇸 Etimología: 'Select' -> 🇪🇸 Elegir o Seleccionar].
+   Declara los elementos HTML que recibirán los estilos (ej: `h1 { ... }` afectará a todos los títulos de nivel 1).
+
+2. PROPIEDAD (La Característica): ¿Qué cualidad física quieres alterar?
+   [🇺🇸 Etimología: 'Property' -> 🇪🇸 Propiedad / Cualidad].
+   Ejemplo: El color, el peso, el tamaño o la sombra.
+
+3. VALOR (La Cantidad Exacta): La respuesta final.
+   [🇺🇸 Etimología: 'Value' -> 🇪🇸 Valor numérico o cualitativo].
+   Si la propiedad es "Color", el valor es "Rojo Sangre".
+
+4. CLASE (El Apodo): 
+   [🇺🇸 Etimología: 'Class' -> 🇪🇸 Clasificación].
+   Un apodo reutilizable (empieza por un punto `.`) que se lo pegamos a la espalda a cualquier etiqueta HTML para darle un diseño específico.
+
+5. PSEUDO-CLASE (El Estado Emocional): 
+   [🇺🇸 Etimología: 'Pseudo' -> 🇪🇸 Falso o Simulado].
+   Añadiendo dos puntos (:), le decimos a la caja que reaccione ante eventos 
+   humanos transitorios, como pasar el ratón por encima (hover) o pulsar un botón.
+
+6. PSEUDO-ELEMENTO (La Decoración Extra):
+   Añadiendo dobles puntos (::), te permite insertar fragmentos cosméticos o gráficos antes o después de la caja sin ensuciar el HTML.
+=============================================================================
+*/
+
+/* --- 1. VARIABLES GLOBALES (:root) --- */
+/* 
+[🇺🇸 Etimología: 'Root' -> 🇪🇸 Raíz profunda].
+El selector ':root' representa el nivel superior del documento.
+Aquí almacenamos "Variables CSS" (Custom Properties). Al centralizar valores 
+(como colores o tipografías), podemos modificar el diseño general de toda la página 
+cambiando el valor en un único lugar, lo que garantiza coherencia y facilita el mantenimiento.
+
+¿QUÉ ES EL HEXADECIMAL (#)?
+Representa colores combinando valores de Rojo, Verde y Azul (RGB).
+'#ffffff' indica intensidad máxima en los tres canales de luz, lo que genera el color blanco puro.
+
+¿QUÉ ES EL CANAL ALFA (rgba)?
+[🇺🇸 Etimología: 'Red Green Blue Alpha' -> 🇪🇸 Rojo, Verde, Azul y Transparencia].
+'rgba(22, 27, 34, 0.8)' define un color con un 80% de opacidad. 
+El valor '0.8' permite que el color sea parcialmente translúcido, dejando ver el fondo.
+*/
+:root {
+    --fondo-principal: #0b0e14;
+    --fondo-cabecera: #161b22;
+    --fondo-tarjeta: rgba(22, 27, 34, 0.8);
+    --azul-neon: #58a6ff;
+    --texto-blanco: #ffffff;
+    --texto-gris: #c9d1d9;
+    --texto-apagado: #8b949e;
+    --borde-suave: #30363d;
+    --fuente-retro: 'Silkscreen', monospace;
+    --fuente-normal: 'Segoe UI', system-ui, sans-serif;
+    --cian-aura: rgba(0, 198, 255, 1);
+    /* Color cian para efectos de aura y halo */
+}
+
+/* --- 2. EL RESETEO UNIVERSAL (*) Y EL MODELO DE CAJA --- */
+/* 
+El selector universal (*) selecciona todos los elementos del documento.
+Lo utilizamos para eliminar los márgenes y rellenos predeterminados que los navegadores aplican, 
+garantizando así un entorno de renderizado estandarizado y predecible.
+*/
+* {
+    /* 
+    [🇺🇸 Etimología: 'Box-Sizing' -> 🇪🇸 Dimensionamiento de la Caja].
+    [🇺🇸 Etimología: 'Border-Box' -> 🇪🇸 Caja calculada desde el Borde].
+    Por defecto (content-box), añadir padding o borde aumenta el ancho total de un elemento, 
+    lo que frecuentemente rompe las medidas (layout). 
+    'border-box' altera este comportamiento: obliga a que cualquier relleno o borde se 
+    absorba hacia el interior del contenedor, manteniendo inalteradas sus dimensiones globales.
+    */
+    box-sizing: border-box;
+
+    /* 
+    [🇺🇸 Etimología: 'Margin' -> 🇪🇸 Margen / Borde Exterior].
+    ¿Por qué 0?: Los navegadores (Chrome, Firefox) inyectan márgenes por defecto a 
+    etiquetas como <body> o <h1>. Al forzar el 0, destruimos esos espacios fantasma 
+    y conseguimos un lienzo 100% predecible para empezar a diseñar.
+    */
+    margin: 0;
+
+    /* 
+    [🇺🇸 Etimología: 'Padding' -> 🇪🇸 Almohadillado / Relleno interior].
+    Al igual que los márgenes, eliminamos cualquier relleno nativo (muy común 
+    en listas <ul> o botones) para tener el control absoluto de las dimensiones.
+    */
+    padding: 0;
+}
+
+/* --- 3. CONFIGURACIÓN DEL CUERPO (BODY) --- */
+/* 
+El elemento raíz visible. Sus estilos se heredan en cascada hacia los elementos 
+hijos, estableciendo la base de diseño (tipografía, color de fondo principal).
+*/
+body {
+    /* 
+    [🇺🇸 Etimología: 'Width' -> 🇪🇸 Anchura].
+    Asegura que el contenedor ocupe el 100% de la pantalla en su eje horizontal.
+    */
+    width: 100%;
+
+    /* 
+    [🇺🇸 Etimología: 'Min-Height' -> 🇪🇸 Altura mínima garantizada].
+    [🇺🇸 Etimología: 'Viewport Height' -> 🇪🇸 Altura del Puerto de Visión].
+    '100vh' asegura que el body cubra, como mínimo, el 100% de la altura visible 
+    de la ventana del navegador, evitando cortes si el documento carece de contenido suficiente.
+    */
+    min-height: 100vh;
+
+    /* 
+    [🇺🇸 Etimología: 'Overflow-X' -> 🇪🇸 Desbordamiento en el Eje Horizontal].
+    [🇺🇸 Etimología: 'Hidden' -> 🇪🇸 Oculto].
+    Previene el desbordamiento horizontal y la aparición no deseada de barras de desplazamiento 
+    si un elemento hijo llegara a exceder el límite lateral de la pantalla.
+    */
+    overflow-x: hidden;
+
+    /* 
+    [🇺🇸 Etimología: 'Background-Color' -> 🇪🇸 Color de fondo].
+    Aplica el color base invocando la variable del contexto global (:root).
+    */
+    background-color: var(--fondo-principal);
+
+    /* 
+    [🇺🇸 Etimología: 'Color' -> 🇪🇸 Color del texto / Primer plano].
+    Establece el color predeterminado para las fuentes de texto del documento.
+    */
+    color: var(--texto-gris);
+
+    /* 
+    [🇺🇸 Etimología: 'Font-Family' -> 🇪🇸 Familia Tipográfica / Letra].
+    */
+    font-family: var(--fuente-normal);
+}
+
+/* --- 4. CLASES DE DISEÑO DE TEXTO --- */
+.palabra-clave {
+    color: var(--azul-neon);
+
+    /* 
+    [🇺🇸 Etimología: 'Font-Weight' -> 🇪🇸 Peso o grosor de la fuente].
+    [🇺🇸 Etimología: 'Bold' -> 🇪🇸 Audaz / Negrita].
+    Incrementa el grosor tipográfico para priorizar la jerarquía de lectura visual.
+    */
+    font-weight: bold;
+}
+
+/* --- 5. UTILIDADES DE EMPATÍA (ACCESIBILIDAD ROBÓTICA) --- */
+.oculto-para-videntes-leido-por-maquinas {
+    /* 
+    [🇺🇸 Etimología: 'Position Absolute' -> 🇪🇸 Posición Absoluta].
+    Al usar posicionamiento absoluto, extraemos el elemento del flujo natural del documento. 
+    De esta forma, ocultamos el elemento sin desplazar la estructura adyacente.
+    */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+
+    /* 
+    [🇺🇸 Etimología: 'Overflow' -> 🇪🇸 Desbordamiento]. 
+    Asegura que cualquier contenido interno superior a 1px no sea renderizado.
+    */
+    overflow: hidden;
+
+    /* 
+    [🇺🇸 Etimología: 'Clip' -> 🇪🇸 Recorte visual].
+    [🇺🇸 Etimología: 'Rect' -> 🇪🇸 Rectángulo].
+    Recorta el espacio visual del elemento hasta anularlo, manteniéndolo presente en el DOM 
+    exclusivamente para los lectores de pantalla (Screen Readers).
+    */
+    clip: rect(0, 0, 0, 0);
+
+    /* 
+    [🇺🇸 Etimología: 'White-Space' -> 🇪🇸 Espacio en blanco].
+    [🇺🇸 Etimología: 'No-Wrap' -> 🇪🇸 Sin envoltura / Prohibir el salto de línea].
+    */
+    white-space: nowrap;
+
+    /* 
+    [🇺🇸 Etimología: 'Border' -> 🇪🇸 Borde o contorno].
+    */
+    border: 0;
+}
+
+/* 
+[🇺🇸 Etimología: ':Focus-Visible' -> 🇪🇸 Foco visible por navegación mecánica].
+Esto es empatía de diseño. Cuando un usuario no puede usar el ratón por una discapacidad 
+motora y navega saltando con la tecla 'Tab', la web TIENE que chillar visualmente dónde 
+está su cursor actualmente.
+*/
+*:focus-visible {
+    /* 
+    [🇺🇸 Etimología: 'Outline' -> 🇪🇸 Contorno externo].
+    [🇺🇸 Etimología: 'Dashed' -> 🇪🇸 Línea discontinua].
+    A diferencia de la propiedad 'border', 'outline' no altera el flujo geométrico 
+    de la página. Se dibuja por encima sin sumar píxeles al tamaño del elemento.
+    */
+    outline: 2px dashed var(--azul-neon);
+
+    /* 
+    [🇺🇸 Etimología: 'Outline-Offset' -> 🇪🇸 Desplazamiento del contorno].
+    Separa visualmente el contorno del borde físico del elemento en 4 píxeles.
+    */
+    outline-offset: 4px;
+}
+
+/* --- 6. EL TRUCO HISTÓRICO: EL CENTRADO VERTICAL CLÁSICO --- */
+.alineacion-media-vertical {
+    /* 
+    [🇺🇸 Etimología: 'Display' -> 🇪🇸 Tipo de visualización o comportamiento].
+    [🇺🇸 Etimología: 'Table-Cell' -> 🇪🇸 Celda de tabla].
+    Técnica heredada (Legacy). Fuerza a un elemento a comportarse como la celda de una 
+    tabla de datos HTML, lo que nos permite aprovechar su capacidad nativa de alineación vertical.
+    */
+    display: table-cell;
+
+    /* 
+    [🇺🇸 Etimología: 'Vertical-Align' -> 🇪🇸 Alineación vertical].
+    [🇺🇸 Etimología: 'Middle' -> 🇪🇸 Medio absoluto].
+    Combinado con 'table-cell', suspende el contenido exactamente en el centro vertical del contenedor.
+    */
+    vertical-align: middle;
+}
+
+/* --- 7. ARQUITECTURA DEL SÁNDWICH (MATEMÁTICA DE 100 REBANADAS) --- */
+/* 
+[🇺🇸 Etimología: 'Child Combinator' -> 🇪🇸 Selector de Hijo Directo (>)]
+Al emplear 'body > header', garantizamos que las reglas CSS se apliquen EXCLUSIVAMENTE 
+al encabezado global (hijo del body). Esto aísla y protege a los elementos <header> 
+secundarios que existan dentro de artículos o tarjetas.
+*/
+body>header,
+body>footer,
+#recursos {
+    /* 
+    [🇺🇸 Etimología: 'Display Table' -> 🇪🇸 Comportarse como Tabla].
+    Requiere que el elemento padre actúe como una tabla para que los hijos 
+    configurados como 'table-cell' hereden el contexto necesario de alineación vertical.
+    */
+    display: table;
+    width: 100%;
+    background-color: var(--fondo-cabecera);
+
+    /* 
+    [🇺🇸 Etimología: 'Text-Align' -> 🇪🇸 Alineación horizontal del texto de lectura].
+    [🇺🇸 Etimología: 'Center' -> 🇪🇸 Centro].
+    */
+    text-align: center;
+}
+
+body>header {
+    /* Toma 10 rebanadas de altura (10%). */
+    height: 10vh;
+
+    /* 
+    [🇺🇸 Etimología: 'Border-Bottom' -> 🇪🇸 Borde Inferior / El Suelo de la caja].
+    [🇺🇸 Etimología: 'Solid' -> 🇪🇸 Línea continua ininterrumpida].
+    */
+    border-bottom: 2px solid var(--borde-suave);
+}
+
+#modulos-aprendizaje {
+    position: relative;
+    /* Contexto para el posicionamiento absoluto del chiste */
+    /* Ocupa el 75% de la altura total del visor (75vh). */
+    height: 75vh;
+    width: 100%;
+    padding: 20px;
+
+    /* 
+    [🇺🇸 Etimología: 'Font-Size' -> 🇪🇸 Tamaño tipográfico].
+    Solución técnica de colapso visual: Los elementos 'inline-block' interpretan los saltos de 
+    línea del código fuente HTML como espacios físicos (similar a pulsar la barra espaciadora). 
+    Al establecer el tamaño de fuente a cero en el padre, se neutraliza este espacio residual, 
+    permitiendo calcular proporciones perfectas en los hijos.
+    */
+    font-size: 0;
+    text-align: center;
+}
+
+#recursos {
+    /* Toma 10 rebanadas (Llevamos 95 totales). */
+    height: 10vh;
+
+    /* [🇺🇸 Etimología: 'Border-Top' -> 🇪🇸 Borde Superior / El Techo]. */
+    border-top: 2px solid var(--borde-suave);
+    background-color: var(--fondo-cabecera);
+}
+
+body>footer {
+    /* Ocupa el 5% final de la altura (10+75+10+5 = 100vh exactos). */
+    height: 5vh;
+    border-top: 2px solid var(--borde-suave);
+}
+
+body>footer p {
+    /* [🇺🇸 Etimología: 'Monospace' -> 🇪🇸 Mono-espacio]. Todos los caracteres poseen un ancho idéntico. */
+    font-family: monospace;
+
+    /* [🇺🇸 Etimología: 'Rem' -> 🇪🇸 Root Em]. Unidad relativa al tamaño base del :root, lo que favorece la accesibilidad escalable. */
+    font-size: 0.65rem;
+    color: var(--texto-apagado);
+
+    /* [🇺🇸 Etimología: 'Letter-Spacing' -> 🇪🇸 Separación o kerning uniforme entre caracteres]. */
+    letter-spacing: 1px;
+}
+
+/* --- 8. INGENIERÍA ÓPTICA: EL TÍTULO PARPADEANTE (GLITCH Y NEÓN) --- */
+.encabezado-con-falla-electrica {
+    font-family: var(--fuente-retro);
+    font-size: 1.5rem;
+    /* Reducido para encajar 5 tecnologías en una línea */
+    letter-spacing: 3px;
+    /* Reducido para mayor compresión visual */
+    color: var(--texto-blanco);
+
+    /* 
+    [🇺🇸 Etimología: 'Animation' -> 🇪🇸 Animación controlada por fotogramas].
+    [🇺🇸 Etimología: 'Infinite' -> 🇪🇸 Repetición en bucle].
+    Vincula el elemento a declaraciones dinámicas (@keyframes) para ejecutar 
+    transiciones automatizadas de forma perpetua.
+    */
+    animation:
+        retro-flicker 5s infinite,
+        glitch-move 6s infinite;
+}
+
+.azul-neon {
+    color: var(--azul-neon);
+}
+
+.texto-glitch {
+    /* 
+    [🇺🇸 Etimología: 'Text-Shadow' -> 🇪🇸 Sombra proyectada del texto].
+    Genera un efecto de iluminación de neón mediante la superposición de múltiples 
+    sombras descentradas en los ejes X/Y, aplicando distintos niveles de desenfoque (blur).
+    Aislado en esta clase para no contaminar por herencia a los elementos hijos.
+    */
+    text-shadow:
+        2px 2px 0px rgba(88, 166, 255, 0.4),
+        -1px -1px 0px rgba(31, 111, 235, 0.5),
+        0 0 12px rgba(88, 166, 255, 0.3);
+}
+
+/* --- ESTILOS DE INYECCIÓN VISUAL (TÍTULO PRINCIPAL) --- */
+.texto-estilo-ladrillo {
+    /* 
+    TEXTURA AVANZADA: 
+    Empleamos un patrón vectorial SVG integrado (Data URI) que dibuja matemáticamente 
+    las juntas del mortero (cemento) para crear ladrillos perfectos y escalables.
+    */
+    font-family: 'Impact', 'Arial Black', sans-serif;
+    color: #e65100;
+    /* Fallback anaranjado sólido */
+    background-color: #d35400;
+    /* Color anaranjado/terracota */
+
+    /* El motor recorta este SVG con forma de ladrillos usando la anatomía de la fuente */
+    background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 0h16v1H0zM8 1h1v7H8zM0 8h16v1H0zM0 9h1v7H0z' fill='rgba(255,255,255,0.4)'/%3E%3C/svg%3E");
+    background-size: 16px 16px;
+
+    /* Inclinación aerodinámica requerida */
+    display: inline-block;
+    transform: skewX(-10deg);
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    /* BLOQUEO DE HERENCIA EXPLICITO: Previene sombras no deseadas */
+    text-shadow: none;
+
+    /* El drop-shadow proyecta sombra sólida sobre el resultado ya recortado, dándole relieve físico. */
+    filter: drop-shadow(2px 2px 0px #5c1818);
+}
+
+.separador-retro {
+    /* 
+    ESTILIZACIÓN DEL SEPARADOR:
+    Rompemos la herencia de la fuente pixelada para usar una tipografía sans-serif 
+    ultra-fina. Esto convierte el aspa en una línea diagonal nítida y elegante, 
+    evitando el aspecto tosco. Se mantiene el efecto glitch para conservar la 
+    identidad visual del encabezado.
+    */
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 100;
+    opacity: 0.4;
+    margin: 0 10px;
+    /* Reducido ligeramente para ahorrar espacio */
+    font-size: 1.3rem;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.texto-estilo-3d-moderno {
+    /* 
+    EXTRUSIÓN TIPOGRÁFICA (Efecto 3D): 
+    Apilando múltiples 'text-shadow' consecutivas con coordenadas incrementales (+1px), 
+    se construye artificialmente el volumen tridimensional del texto sin requerir WebGL. 
+    */
+    font-family: 'Arial Black', sans-serif;
+    color: #00f3ff;
+    display: inline-block;
+
+    /* Sesgo geométrico (skew) para aportar un carácter aerodinámico y moderno. */
+    transform: skewX(-10deg);
+
+    text-shadow:
+        1px 1px 0 #0056b3,
+        2px 2px 0 #0056b3,
+        3px 3px 0 #0056b3,
+        4px 4px 0 #0056b3,
+        5px 5px 0 #0056b3,
+        6px 6px 15px rgba(0, 0, 0, 0.8);
+}
+
+.texto-estilo-chispa {
+    /* 
+    NEÓN CIBERPUNK (JavaScript):
+    Elimina el relleno sólido del texto y pinta únicamente un trazo exterior (stroke) 
+    de color amarillo brillante, complementado con un halo de luz concentrado.
+    */
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 900;
+    font-style: italic;
+    color: transparent;
+    -webkit-text-stroke: 1px #F7DF1E;
+    text-shadow: 0 0 8px rgba(247, 223, 30, 0.8), 0 0 15px rgba(247, 223, 30, 0.4);
+    display: inline-block;
+    transform: skewX(-5deg);
+}
+
+.texto-estilo-forja {
+    /* 
+    FORJA Y CONTRASTE (Java):
+    Simula el metal al rojo vivo en la parte superior que se enfría en un 
+    temple azul profundo en la base, representando la dualidad del logo de Java.
+    */
+    font-family: 'Impact', 'Arial Black', sans-serif;
+    color: #b22222;
+    background-image: linear-gradient(to bottom, #ff4500 0%, #8b0000 25%, #0056b3 25%, #002d5b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(1px 1px 0px #111) drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.8));
+    text-shadow: none;
+    /* Bloqueo de herencia */
+    display: inline-block;
+}
+
+.texto-estilo-terminal {
+    /* 
+    FÓSFORO VERDE (SQL):
+    Tipografía monoespaciada estricta, color verde clásico de monitor CRT,
+    con un ligero desenfoque perimetral para emular radiación catódica, 
+    y subrayado punteado simulando tablas de datos.
+    */
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-weight: bold;
+    color: #00FF41;
+    text-shadow: 0 0 5px rgba(0, 255, 65, 0.8);
+    border-bottom: 2px dashed #00FF41;
+    padding-bottom: 2px;
+    display: inline-block;
+}
+
+.texto-estilo-computadora-antigua {
+    font-family: monospace;
+    font-size: 0.6rem;
+    color: var(--texto-apagado);
+
+    /* [🇺🇸 Etimología: 'Margin-Top' -> 🇪🇸 Campo de Fuerza Superior. Aleja a su vecino de arriba]. */
+    margin-top: 2px;
+}
+
+/* --- 9. MENÚ DE NAVEGACIÓN Y COMPORTAMIENTO DE HOVER --- */
+nav ul {
+    /* 
+    [🇺🇸 Etimología: 'List-Style' -> 🇪🇸 Estilo de la lista].
+    [🇺🇸 Etimología: 'None' -> 🇪🇸 Ninguno]. Oculta las viñetas predeterminadas de los elementos `li`.
+    */
+    list-style: none;
+    margin-top: 10px;
+}
+
+nav ul li {
+    /* 
+    [🇺🇸 Etimología: 'Display Inline-Block' -> 🇪🇸 Visualización en línea y en bloque].
+    Combina la capacidad del bloque para poseer márgenes y dimensiones explícitas, 
+    mientras conserva la capacidad de fluir en horizontal de los elementos en línea (inline).
+    */
+    display: inline-block;
+
+    /* Espaciado exterior lateral de 8 píxeles para generar separación intermodular. */
+    margin: 0 8px;
+}
+
+nav a {
+    /* 
+    [🇺🇸 Etimología: 'Text-Decoration' -> 🇪🇸 Decoraciones de subrayado o tachado].
+    Elimina el subrayado predeterminado que el navegador inyecta a los enlaces.
+    */
+    text-decoration: none;
+    font-size: 0.65rem;
+    color: var(--texto-apagado);
+
+    /* El relleno interno aumenta el área interactiva (hitbox), mejorando la accesibilidad táctil. */
+    padding: 3px 12px;
+    border: 1px solid var(--borde-suave);
+
+    /* 
+    [🇺🇸 Etimología: 'Border-Radius' -> 🇪🇸 Radio del contorno].
+    Suaviza las aristas del perímetro, proyectando esquinas curvas.
+    */
+    border-radius: 4px;
+
+    /* 
+    [🇺🇸 Etimología: 'Transition' -> 🇪🇸 Transición de estados].
+    [🇺🇸 Etimología: 'Ease' -> 🇪🇸 Interpolación no lineal].
+    Aplica una transición algorítmica de 0.3 segundos cuando ocurren cambios de estado 
+    (como el :hover), garantizando modificaciones fluidas de color sin cortes abruptos.
+    */
+    transition: 0.3s ease;
+}
+
+/* [🇺🇸 Etimología: ':Hover' -> 🇪🇸 Evento desencadenado al posicionar el cursor encima]. */
+nav a:hover {
+    color: var(--azul-neon);
+
+    /* [🇺🇸 Etimología: 'Border-Color' -> 🇪🇸 Color de la línea del borde perimetral]. */
+    border-color: var(--azul-neon);
+
+    /* 
+    [🇺🇸 Etimología: 'Box-Shadow' -> 🇪🇸 Sombra perimetral de la caja estructural].
+    Proyecta un resplandor desde los límites físicos de la caja, en contraste a text-shadow.
+    */
+    box-shadow: 0 0 8px rgba(88, 166, 255, 0.2);
+}
+
+/* --- 10. ATMÓSFERA Y FONDOS VISUALES COMPLEJOS --- */
+main {
+    width: 100%;
+
+    /* 
+    [🇺🇸 Etimología: 'Background-Image' -> 🇪🇸 Imagen o capa de fondo].
+    [🇺🇸 Etimología: 'Linear-Gradient' -> 🇪🇸 Gradiente direccional de color].
+    [🇺🇸 Etimología: 'Uniform Resource Locator (URL)' -> 🇪🇸 Localizador unificado de recursos].
+    Aplica una arquitectura multicapa: Un gradiente oscuro semitransparente (opacidad 0.9) 
+    se renderiza por encima de una imagen fotográfica externa, garantizando legibilidad superior.
+    */
+    background-image: linear-gradient(rgba(11, 14, 20, 0.7), rgba(11, 14, 20, 0.8)),
+        url('../img/background.jpg');
+
+    /* 
+    [🇺🇸 Etimología: 'Background-Size' -> 🇪🇸 Dimensionamiento del fondo].
+    [🇺🇸 Etimología: 'Cover' -> 🇪🇸 Cubrir la totalidad].
+    Ajusta la imagen para cubrir el 100% del contenedor, sacrificando y recortando 
+    los márgenes excedentes si la proporción fotográfica difiere de la del documento.
+    */
+    background-size: cover;
+
+    /* 
+    [🇺🇸 Etimología: 'Background-Position' -> 🇪🇸 Ubicación del fondo].
+    [🇺🇸 Etimología: 'Center' -> 🇪🇸 Centro matemático].
+    Fuerza el centrado simultáneo en los ejes X e Y.
+    */
+    background-position: center;
+}
+
+/* --- 11. MATEMÁTICAS GEOMÉTRICAS: LAS TARJETAS --- */
+.ficha-informativa-tecnologica {
+    display: inline-block;
+
+    /* 
+    [🇺🇸 Etimología: 'Vertical-Align: Top' -> 🇪🇸 Alineación superior].
+    Previene la desalineación estructural. Al utilizar cajas 'inline-block', la configuración 
+    por defecto (baseline) causa desajustes verticales si el volumen de texto interno difiere 
+    entre cajas. 'top' fuerza una alineación superior estricta y uniforme.
+    */
+    vertical-align: top;
+
+    /* Usamos proporciones líquidas (%) en vez de milímetros rígidos (px) para que sean gomas elásticas que se estiran según el monitor. */
+    width: 18.5%;
+    height: 82%;
+    margin: 0.7%;
+
+    /* Restauramos la voz humana tras haber estrangulado al padre con font-size: 0. */
+    font-size: 1rem;
+}
+
+/* --- 12. MAGIA TRIDIMENSIONAL (LEVITA, ANCLA Y GUILLOTINA) --- */
+.tarjeta-educativa {
+    background: var(--fondo-tarjeta);
+    border: 1px solid var(--borde-suave);
+    border-radius: 12px;
+    height: 100%;
+    padding: 40px 15px;
+
+    /* 
+    [🇺🇸 Etimología: 'Position: Relative' -> 🇪🇸 Posicionamiento relativo].
+    Establece el contexto de coordenadas local. A partir de aquí, cualquier elemento hijo 
+    con 'position: absolute' calculará su posición basándose en las esquinas de esta 
+    tarjeta, en lugar de utilizar las coordenadas globales del documento.
+    */
+    position: relative;
+
+    /* 
+    [🇺🇸 Etimología: 'Overflow: Hidden' -> 🇪🇸 Ocultar desbordamiento].
+    Oculta visualmente cualquier elemento secundario que exceda las fronteras físicas 
+    de la tarjeta. Esto es crítico para mantener paneles ocultos fuera del área visible 
+    antes de desencadenar sus animaciones de entrada.
+    */
+    overflow: hidden;
+    transition: 0.4s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+
+.tarjeta-educativa:hover,
+.tarjeta-educativa:focus {
+    /* 
+    [🇺🇸 Etimología: 'Transform' -> 🇪🇸 Transformación espacial].
+    [🇺🇸 Etimología: 'Translate Y' -> 🇪🇸 Trasladar en el eje Vertical].
+    Traslada la tarjeta en el eje Y (hacia arriba, por el valor negativo), generando 
+    retroalimentación interactiva y un efecto de elevación.
+    */
+    transform: translateY(-10px);
+    border-color: var(--azul-neon);
+    box-shadow: 0 0 25px rgba(88, 166, 255, 0.2);
+
+    /* Destruye la caja de selección fea que pondría Google Chrome al enfocar con el teclado. */
+    outline: none;
+}
+
+.etiqueta-numerica-flotante {
+    /* 
+    [🇺🇸 Etimología: 'Position: Absolute' -> 🇪🇸 Posición absoluta].
+    Extrae el elemento del flujo geométrico estático, lo que nos permite ubicarlo 
+    mediante coordenadas exactas relativas a su ancestro 'relative' más cercano.
+    */
+    position: absolute;
+
+    /* 
+    [🇺🇸 Etimología: 'Top / Left' -> 🇪🇸 Superior / Izquierda].
+    Fija el elemento a 10 píxeles del límite superior y 10 píxeles del límite izquierdo.
+    */
+    top: 10px;
+    left: 10px;
+
+    font-family: monospace;
+    color: var(--texto-apagado);
+    font-size: 0.7rem;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+/* 
+INTERACTIVIDAD DE ESTADO:
+Cuando la tarjeta adquiere la clase '.is-open' (clic del usuario), el número de versión
+(0x01, etc.) hereda la paleta de "Sistema Activo", brillando en neón azul.
+*/
+.tarjeta-educativa.is-open .etiqueta-numerica-flotante {
+    color: var(--azul-neon);
+    text-shadow: 0 0 5px var(--azul-neon);
+}
+
+/* --- 13. ICONOGRAFÍA Y LENTES FOTOGRÁFICAS (EFECTO AURA CLONADA) --- */
+.contenedor-imagen-con-aura {
+    /* 
+    [🇺🇸 Etimología: 'Position: Relative' -> 🇪🇸 Posicionamiento relativo].
+    Actúa como ancla de coordenadas para permitir que el aura clonada (absolute) 
+    se superponga con precisión milimétrica detrás de la imagen principal.
+    */
+    position: relative;
+    display: inline-block;
+}
+
+.aura-multicolor {
+    width: 100px;
+    height: auto;
+    margin-top: 30px;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    /* 
+    ESTRATEGIA DE RENDIMIENTO GRÁFICO: 
+    Animar de forma continua propiedades complejas como 'filter' puede causar pérdida 
+    de fotogramas (lag). Por ello, el aura se desenfoca de forma permanente, pero se 
+    vuelve 100% invisible (opacity: 0). Lo que se anima es únicamente su canal alfa.
+    */
+    filter: blur(8px) saturate(150%);
+    opacity: 0;
+
+    /* 
+    [🇺🇸 Etimología: 'Transition' -> 🇪🇸 Transición de estados temporales].
+    Coordina transiciones simultáneas. La opacidad (aparición de luz) requiere 0.8s 
+    con curva progresiva (ease-in-out), mientras que la escala física es más ágil (0.5s).
+    */
+    transition: opacity 0.8s ease-in-out, transform 0.5s ease;
+
+    pointer-events: none;
+    z-index: 1;
+}
+
+.grafico-representativo {
+    width: 100px;
+    height: auto;
+    margin-top: 30px;
+    position: relative;
+    z-index: 2;
+
+    /* 
+    [🇺🇸 Etimología: 'Filter' -> 🇪🇸 Filtro fotográfico de capa].
+    [🇺🇸 Etimología: 'Contrast(0)' -> 🇪🇸 Contraste nulo].
+    Técnica de homogeneización cromática: Reduce el contraste al mínimo para transformar 
+    cualquier logotipo SVG multicolor en una silueta plana (gris 50%). Posteriormente, 
+    el brillo ('brightness') y la opacidad compensan el tono para fundirlo con el fondo oscuro.
+    */
+    filter: contrast(0) brightness(1.5) opacity(0.3);
+    transition: filter 0.5s ease, transform 0.5s ease;
+}
+
+.tarjeta-educativa:hover .aura-multicolor,
+.tarjeta-educativa:focus .aura-multicolor,
+.tarjeta-educativa.is-open .aura-multicolor {
+    /* La luz se enciende al 80% suavemente */
+    opacity: 0.8;
+    transform: scale(1.1);
+}
+
+.tarjeta-educativa:hover .grafico-representativo,
+.tarjeta-educativa:focus .grafico-representativo,
+.tarjeta-educativa.is-open .grafico-representativo {
+    /* 
+    Restablece los parámetros del filtro a su estado neutro (valor 1 = 100%).
+    Esto devuelve el color y opacidad originales al logotipo durante la interacción.
+    */
+    filter: contrast(1) brightness(1) opacity(1);
+    transform: scale(1.1);
+}
+
+.tarjeta-educativa h3 {
+    font-size: 1.1rem;
+    color: var(--azul-neon);
+
+    /* [🇺🇸 Etimología: 'Margin-Bottom' -> 🇪🇸 Espaciado exterior inferior]. */
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+
+    /* Prepara la interpolación temporal para cuando el usuario active el estado :hover */
+    transition: text-shadow 0.4s ease;
+}
+
+/* 
+Interacción Elegante: Al sobrevolar la tarjeta entera, el h3 interno responde emitiendo 
+un aura de luz sutil en tonos cian/azul, coordinándose con el encendido gráfico del logotipo.
+*/
+.tarjeta-educativa:hover h3,
+.tarjeta-educativa:focus h3 {
+    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5), 0 0 20px rgba(88, 166, 255, 0.3);
+}
+
+/* --- 14. LA PERSIANA DEL SÓTANO (INGENIERÍA DEL SLIDE-UP) --- */
+.panel-de-datos-escondido {
+    position: absolute;
+    display: table;
+
+    /* 
+    [🇺🇸 Etimología: 'Bottom' -> 🇪🇸 Coordenada inferior].
+    Ocultación geométrica por desplazamiento: Al asignarle '-100%', el panel desciende 
+    una distancia equivalente a su propia altura, situándose completamente por debajo 
+    del borde inferior de su contenedor padre. El 'overflow: hidden' del padre garantiza 
+    que este bloque permanezca invisible hasta que se anime hacia arriba.
+    */
+    bottom: -100%;
+    left: 0;
+    width: 100%;
+    height: 50%;
+
+    /* [🇺🇸 Etimología: 'Background' -> 🇪🇸 Versión atajo (Shorthand) para background-color. Pinta el fondo del sótano]. */
+    background: var(--fondo-principal);
+    border-top: 2px solid var(--azul-neon);
+    text-align: left;
+
+    /* 
+    [🇺🇸 Etimología: 'Ease-Out' -> 🇪🇸 Desaceleración progresiva].
+    Curva de interpolación. Inicia la animación de forma acelerada y disminuye 
+    suavemente la velocidad hacia el final, aportando naturalidad física al movimiento.
+    */
+    transition: 0.4s ease-out;
+}
+
+.texto-dentro-del-panel {
+    display: table-cell;
+    vertical-align: middle;
+    padding: 0 5%;
+}
+
+/* 
+PROPAGACIÓN DE ESTADOS INTERACTIVOS:
+Cuando el contenedor principal (.tarjeta-educativa) recibe el evento :hover (cursor encima), 
+puede modificar dinámicamente las propiedades de sus elementos hijos. En este caso, 
+modificamos la coordenada del panel oculto, obligándolo a ascender a la posición visible (bottom: 0).
+
+[🇺🇸 Etimología: 'Is Open' -> 🇪🇸 Está Abierto].
+ESTADO DE APLICACIÓN (.is-open):
+A diferencia de :hover (que depende de la posición del ratón) y :focus (que depende 
+del foco del teclado/click), la clase '.is-open' es una DECISIÓN LÓGICA del usuario 
+gestionada por JavaScript. CSS no tiene "memoria": no puede recordar si un click 
+fue para abrir o cerrar. Por eso delegamos esa responsabilidad al script (ver index.html), 
+que añade o quita esta clase según convenga. CSS simplemente "pinta" lo que la clase ordena.
+*/
+.tarjeta-educativa:hover .panel-de-datos-escondido,
+.tarjeta-educativa.is-open .panel-de-datos-escondido {
+    bottom: 0;
+}
+
+.panel-de-datos-escondido p,
+.panel-de-datos-escondido em {
+    color: var(--texto-blanco);
+    font-size: 0.75rem;
+
+    /* 
+    [🇺🇸 Etimología: 'Line-Height' -> 🇪🇸 Altura del renglón tipográfico].
+    Un valor de '1.5' (150% del tamaño de fuente) incrementa el espacio vertical 
+    entre líneas consecutivas, optimizando notablemente la legibilidad de textos extensos.
+    */
+    line-height: 1.5;
+}
+
+.panel-de-datos-escondido em {
+    /* Fuerza un comportamiento de bloque (block), enviando el contenido subsiguiente a una nueva línea. */
+    display: block;
+
+    /* 
+    [🇺🇸 Etimología: 'Font-Style' -> 🇪🇸 Estilo tipográfico].
+    [🇺🇸 Etimología: 'Normal' -> 🇪🇸 Eje vertical estandarizado].
+    La etiqueta <em> aplica estilo cursivo por defecto debido a su semántica de énfasis. 
+    Esta regla restablece el texto a su eje vertical normal para mantener la coherencia del diseño.
+    */
+    font-style: normal;
+
+    border-top: 1px solid var(--borde-suave);
+    padding-top: 2vh;
+    margin-top: 2vh;
+    font-size: 0.7rem;
+}
+
+/* --- 15. LA INGENIERÍA PLÁSTICA DE LOS BOTONES DE RECURSOS --- */
+.rotulo-secundario {
+    font-family: monospace;
+    font-size: 0.6rem;
+    color: var(--texto-apagado);
+    /* 
+    JERARQUÍA VISUAL:
+    Aumentamos el margen inferior para que el título respire y no se sienta 
+    "asfixiado" por la lista de botones que viene a continuación.
+    */
+    margin-bottom: 30px;
+    letter-spacing: 3px;
+}
+
+.lista-de-enlaces-externos {
+    list-style: none;
+}
+
+.lista-de-enlaces-externos li {
+    display: inline-block;
+    margin: 0 12px;
+}
+
+.boton-mecanico-interactivo {
+    text-decoration: none;
+    color: var(--texto-blanco);
+    background-color: #37567c;
+    font-size: 0.7rem;
+    font-weight: bold;
+    padding: 10px 22px;
+    border-radius: 6px;
+    display: inline-block;
+
+    /* 
+    DISEÑO ESQUEUMÓRFICO (Volumen Físico):
+    En lugar de aplicar un desenfoque radial, inyectamos una sombra sólida (sin 'blur') 
+    y la desplazamos verticalmente hacia abajo (4 píxeles). Esto emula el volumen 
+    tridimensional y la geometría de un teclado mecánico de hardware.
+    */
+    box-shadow: 0 4px 0 #1a3150;
+    transition: 0.2s ease;
+}
+
+.boton-mecanico-interactivo:hover {
+    background-color: #4a6c9a;
+
+    /* El botón se traslada ligeramente en el eje vertical (elevación simulada). */
+    transform: translateY(-2px);
+
+    /* 
+    Compensación espacial volumétrica: Al elevar el botón (translateY de -2px), 
+    se incrementa matemáticamente el grosor de la sombra base (pasando de 4px a 6px). 
+    Esto mantiene la ilusión estructural de profundidad sin desconectar la sombra de la base gráfica.
+    */
+    box-shadow: 0 6px 0 #1a3150;
+}
+
+/* 
++-----------------------------------------------------------------------------+
+| SISTEMA DE TOOLTIPS PERSONALIZADOS (data-title)                             |
++-----------------------------------------------------------------------------+
+| Dado que el atributo 'title' nativo no es estirable, usamos 'data-title'    |
+| junto con pseudo-elementos para crear etiquetas flotantes premium.          |
++-----------------------------------------------------------------------------+
+*/
+.boton-mecanico-interactivo {
+    position: relative;
+    /* Base para el posicionamiento absoluto del tooltip */
+}
+
+.boton-mecanico-interactivo::after {
+    content: attr(data-title);
+    /* Extrae el texto del atributo HTML */
+    position: absolute;
+    bottom: 125%;
+    /* Aparece por encima del botón */
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+
+    /* Estética */
+    background: rgba(11, 14, 20, 0.95);
+    color: var(--azul-neon);
+    /* Restauramos el azul original para el texto */
+    padding: 8px 15px;
+    border-radius: 8px;
+    border: 1px solid var(--cian-aura);
+    font-size: 0.65rem;
+    white-space: nowrap;
+
+    /* Estado inicial (oculto) */
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    z-index: 200;
+
+    /* Sombra de apoyo para lectura */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+}
+
+.boton-mecanico-interactivo:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+    /* Efecto de subida suave */
+}
+
+/* --- 15.1 LÓGICA DE MENÚS DESPLEGABLES (Dropdowns) --- */
+.item-desplegable {
+    position: relative;
+    cursor: default;
+}
+
+.item-desplegable button.boton-mecanico-interactivo {
+    /* 
+    [🇺🇸 Etimología: 'Reset' -> 🇪🇸 Reinicio / Neutralización].
+    Los navegadores aplican estilos por defecto a los <button> diferentes a los de <a>: 
+    borde gris, fondo gris claro y tipografía serif. Este reset neutraliza esos valores 
+    para que el botón sea visualmente idéntico a los enlaces con la clase .boton-mecanico-interactivo.
+    Sin estas líneas, el botón JUEGOS_CSS se vería diferente al resto de botones.
+    */
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.sub-lista-recursos {
+    /* Ocultamos el bloque y lo posicionamos sobre el botón padre */
+    display: none;
+    position: absolute;
+
+    /* 
+    [🇺🇸 Etimología: 'Bottom' -> 🇪🇸 Coordenada inferior].
+    Estrategia de UX: Usamos 'bottom' en lugar de 'top' para que el menú emerja 
+    HACIA ARRIBA. Dado que la barra de recursos está al final de la página, si se 
+    desplegara hacia abajo quedaría cortada por el borde inferior de la ventana. 
+    El 125% significa: "Sube 1.25 veces tu propia altura", dejando un hueco para 
+    el triángulo indicador (pseudo-elemento ::after que veremos más abajo).
+    */
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%);
+    list-style: none;
+    background: var(--fondo-cabecera);
+    padding: 15px;
+    border: 2px solid var(--cian-aura);
+    /* Borde cian para consistencia */
+    border-radius: 12px;
+    min-width: 220px;
+
+    /* 
+    [🇺🇸 Etimología: 'Z-Index' -> 🇪🇸 Índice de profundidad].
+    Determina el orden de apilamiento visual. Un valor de 100 garantiza que el menú 
+    se dibuje POR ENCIMA de prácticamente todos los demás elementos de la página.
+    */
+    z-index: 100;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
+}
+
+.sub-lista-recursos li {
+    /* 
+    [🇺🇸 Etimología: '!important' -> 🇪🇸 Prioridad Absoluta].
+    Normalmente, CSS respeta la cascada: la última regla gana. Sin embargo, 
+    '!important' rompe esa jerarquía y fuerza su valor por encima de cualquier otra 
+    regla, sin importar su posición. Es una "orden ejecutiva" que se usa con moderación 
+    porque dificulta el mantenimiento del código.
+    Aquí es necesario porque el padre '.lista-de-enlaces-externos li' (Sección 15) 
+    hereda 'display: inline-block' y 'margin: 0 12px'. Forzamos 'block' y un margen 
+    vertical para que los sub-items se apilen en columna dentro del desplegable.
+    */
+    display: block !important;
+    margin: 10px 0 !important;
+    text-align: center;
+}
+
+.sub-lista-recursos li a {
+    width: 100%;
+}
+
+/* 
+Indicador visual (triángulo) que apunta al botón padre.
+TRUCO CLÁSICO DE CSS: Los bordes de un elemento sin ancho ni alto forman triángulos.
+Al hacer transparentes tres de los cuatro bordes, solo queda visible uno de ellos, 
+creando una punta de flecha. Es una técnica muy usada para flechas de tooltips y menús.
+El pseudo-elemento ::after (doble dos puntos) inserta este triángulo después del 
+contenido del menú, sin necesidad de añadir etiquetas HTML adicionales.
+*/
+.sub-lista-recursos::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 10px;
+    border-style: solid;
+    border-color: var(--azul-neon) transparent transparent transparent;
+}
+
+/* 
+Estado de apertura del desplegable: controlado exclusivamente por JavaScript.
+A diferencia de las tarjetas (que combinan :hover + .is-open), el desplegable 
+NO usa :hover para abrirse, porque el :hover reabriría el menú instantáneamente 
+despues de que JS le quitara la clase, anulando el toggle.
+*/
+.item-desplegable.is-open .sub-lista-recursos {
+    display: block;
+    animation: fadeInSlideUp 0.3s ease-out;
+}
+
+/* 
+[Animación de Entrada del Desplegable]
+Combinamos dos transformaciones simultáneas:
+- opacity (de 0 a 1): El menú pasa de invisible a visible.
+- translate (de 10px a 0): El menú "sube" suavemente 10px hasta su posición final.
+La duración de 0.3s con ease-out genera una deceleración natural al final del movimiento.
+*/
+@keyframes fadeInSlideUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+/* --- 16. LOS MOTORES DE ANIMACIÓN EN EL TIEMPO --- */
+/* 
+[🇺🇸 Etimología: '@Keyframes' -> 🇪🇸 Fotogramas Clave de animación].
+Define los estados o "Waypoints" de una animación a través de su línea de tiempo (0% a 100%).
+El motor de renderizado de CSS calcula automáticamente la interpolación gráfica (los 
+pasos y valores matemáticos intermedios) para asegurar transiciones fluidas entre los estados.
+*/
+@keyframes retro-flicker {
+
+    /* 
+    [🇺🇸 Etimología: 'Opacity' -> 🇪🇸 Opacidad].
+    Durante la mayor parte del ciclo temporal, la tipografía luminosa permanece constante y visible.
+    */
+    0%,
+    18%,
+    22%,
+    25%,
+    53%,
+    57%,
+    100% {
+        opacity: 1;
+        filter: brightness(1);
+    }
+
+    /* 
+    En intervalos asimétricos calculados, se fuerza una reducción brusca de opacidad 
+    y luminosidad, emulando la inestabilidad de tensión (flicker) propia de un tubo de neón defectuoso.
+    */
+    20%,
+    24%,
+    55% {
+        opacity: 0.3;
+        filter: brightness(0.5);
+    }
+}
+
+@keyframes glitch-move {
+
+    /* 
+    [🇺🇸 Etimología: 'Translate' -> 🇪🇸 Traslación en los vectores estáticos].
+    Punto de anclaje de reposo absoluto.
+    */
+    0%,
+    100% {
+        transform: translate(0);
+    }
+
+    /* Desplazamientos mínimos estocásticos en ambos ejes, simulando vibración o jitter. */
+    33% {
+        transform: translate(-1px, 1px);
+    }
+
+    66% {
+        transform: translate(1px, -1px);
+    }
+
+    /* 
+    [🇺🇸 Etimología: 'Skew X' -> 🇪🇸 Sesgo horizontal o inclinación deformante].
+    Inclina la geometría del elemento 2 grados durante una fracción del tiempo, emulando 
+    aberraciones gráficas o interferencias propias de las pantallas de tubos de rayos catódicos (CRT).
+    */
+    90% {
+        transform: skewX(2deg);
+    }
+}
+
+/* 
+=============================================================================
+ EL LABORATORIO ZOMBI: RECREACIÓN PROFESIONAL DE LA ANIMACIÓN MARQUEE
+=============================================================================
+El uso de la etiqueta HTML '<marquee>' está totalmente obsoleto debido a graves 
+problemas de accesibilidad e indexación (SEO). El enfoque técnico moderno para emular 
+el desplazamiento infinito es utilizar animaciones CSS nativas y controladas.
+
+.marquesina-moderna {
+    display: inline-block;
+    white-space: nowrap; (Impide el salto automático de línea)
+    
+    (Asignación de animación: Duración de 10 segundos, ritmo constante (linear) 
+     y repetición secuencial ininterrumpida (infinite))
+    animation: desplazamiento-infinito 10s linear infinite;
+}
+
+@keyframes desplazamiento-infinito {
+    (Inicio (0%): Desplaza el elemento totalmente a la derecha, fuera del contenedor visible)
+    0% { transform: translateX(100%); }
+    
+    (Final (100%): Traslada progresivamente la geometría del elemento hacia el eje X negativo, 
+     hasta ocultarlo por completo en el extremo izquierdo)
+    100% { transform: translateX(-100%); }
+}
+=============================================================================
+*/
+
+/* --- 17. MÓDULO DE CHISTES (DYNAMIC OUTPUT) --- */
+/* 
++-----------------------------------------------------------------------------+
+| [🇺🇸 Etimología: 'Z-Index' -> 🇪🇸 Índice de Profundidad en el eje Z]          |
++-----------------------------------------------------------------------------+
+| CONCEPTO: En una pantalla 2D, el eje Z es la profundidad. Un valor de 10    |
+| asegura que el chiste "flote" por encima de las tarjetas, evitando que la   |
+| geometría de los artículos oculte el mensaje del sistema.                   |
++-----------------------------------------------------------------------------+
+| [🇺🇸 Etimología: 'Absolute' -> 🇪🇸 Independencia del flujo]                  |
++-----------------------------------------------------------------------------+
+| NOTA TÉCNICA: Usamos 'absolute' para que el chiste no empuje a las otras    |
+| secciones del "sándwich". Se ancla al fondo de su padre sin ocupar espacio  |
+| físico real en el cálculo de las 100 rebanadas de altura (vh).              |
++-----------------------------------------------------------------------------+
+*/
+#contenedor-chiste-dinamico {
+    position: absolute;
+    /* Sacamos del flujo para que flote al fondo */
+    bottom: 20px;
+    /* Anclado al fondo de la sección de aprendizaje */
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    min-height: 60px;
+    z-index: 10;
+    /* Por encima de las tarjetas */
+}
+
+.consola-chiste {
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid var(--azul-neon);
+    padding: 12px 25px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 0 15px rgba(88, 166, 255, 0.2);
+    /* Estado inicial para la transición suave */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+/* Clase de activación para el efecto suave */
+.consola-chiste.is-active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.prefix-chiste {
+    font-family: monospace;
+    font-size: 0.6rem;
+    color: var(--texto-apagado);
+}
+
+.cuerpo-chiste {
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--texto-blanco);
+}
+
+/* 
++-----------------------------------------------------------------------------+
+| INGENIERÍA DE INTERFAZ: INDICADORES DE TECLADO Y ESTADO                     |
++-----------------------------------------------------------------------------+
+| 1. .status-terminal: Mensaje de depuración centrado sobre la consola.       |
+| 2. .tecla-mecanica: Estética skeumórfica que imita teclas de hardware.      |
+| 3. .is-pressed: Estado de "chispazo" lumínico con desvanecimiento de 1.5s.  |
++-----------------------------------------------------------------------------+
+*/
+.status-terminal {
+    position: absolute;
+    bottom: 115px;
+    /* Ajustado para dar más aire sobre la consola */
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: monospace;
+    font-size: 0.6rem;
+    color: var(--azul-neon);
+    letter-spacing: 2px;
+    opacity: 0;
+    /* Oculto por defecto */
+    transition: opacity 0.3s ease;
+    text-shadow: 0 0 5px var(--azul-neon);
+}
+
+/* Clase de activación para el mensaje de estado */
+.status-terminal.is-visible {
+    opacity: 0.7;
+}
+
+/* 
+Clase de utilidad paramétrica para unificar la estética "Cyberpunk/Terminal".
+Al aislar esto en una clase, garantizamos consistencia en toda la web sin repetir código.
+*/
+.texto-azul-terminal {
+    color: var(--azul-neon);
+    text-shadow: 0 0 5px var(--azul-neon);
+    opacity: 0.7;
+
+    /* 
+    ¿Por qué normal?: Si le aplicamos esta clase a un <h2>, el navegador lo pondrá en 
+    negrita por defecto. Una letra gruesa tiene más "masa" de píxeles, lo que hace que 
+    el resplandor (text-shadow) se vea saturado y difuminado. Forzar el grosor fino 
+    asegura que la luz de neón se mantenga nítida sin importar la etiqueta HTML usada. 
+    */
+    font-weight: normal;
+}
+
+.tecla-mecanica {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    /* Un poco más grande para mejor presencia */
+    height: 50px;
+
+    /* 
+    SKEUOMORFISMO AVANZADO:
+    Combinamos un gradiente lineal para la curvatura de la tecla con múltiples capas 
+    de sombras: una interna para la profundidad de la letra y tres externas para 
+    la base física, el relieve y el contacto con la superficie.
+    */
+    background: linear-gradient(180deg, #1e2936 0%, #111821 100%);
+    border: 1px solid #2c3e50;
+    border-radius: 8px;
+    color: var(--texto-gris);
+    font-family: var(--fuente-retro);
+    font-size: 1.4rem;
+    cursor: help;
+
+    box-shadow:
+        0 5px 0 #000,
+        0 8px 15px rgba(0, 0, 0, 0.6),
+        inset 0 1px 1px rgba(255, 255, 255, 0.1);
+
+    transition: all 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+#tecla-s {
+    left: 30px;
+}
+
+/* S a la izquierda */
+#tecla-j {
+    right: 30px;
+}
+
+/* J a la derecha */
+
+/* 
+TOOLTIP PERSONALIZADO PARA TECLAS:
+Reutilizamos la lógica de inyección de títulos para que las teclas también 
+muestren su función pedagógica al pasar el ratón.
+*/
+.tecla-mecanica::after {
+    content: attr(data-title);
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: rgba(11, 14, 20, 0.95);
+    color: var(--azul-neon);
+    /* Restauramos el azul original para el texto */
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: 1px solid var(--cian-aura);
+    font-size: 0.55rem;
+    font-family: monospace;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.tecla-mecanica:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Estado de pulsación: El "Chispazo de Neón" */
+.tecla-mecanica.is-pressed {
+    color: #fff;
+    border-color: var(--azul-neon);
+
+    /* 
+    EFECTO GLOW (Brillo): 
+    Aplicamos un resplandor tanto en el texto (text-shadow) como en la caja (box-shadow) 
+    para simular que la tecla emite luz propia desde su interior.
+    */
+    text-shadow: 0 0 10px var(--azul-neon), 0 0 20px var(--azul-neon);
+    box-shadow:
+        0 2px 0 #000,
+        0 0 20px var(--azul-neon),
+        inset 0 0 10px var(--azul-neon);
+
+    transform: translateY(3px);
+    /* Simula la pulsación física hacia abajo */
+    transition: none;
+    /* Encendido instantáneo */
+}
+
+/* 
++-----------------------------------------------------------------------------+
+| ARQUITECTURA DE CIERRE: LA LECCIÓN MAESTRA DE FLEXBOX                       |
++-----------------------------------------------------------------------------+
+| ¿POR QUÉ FLEXBOX AQUÍ?: Durante todo el proyecto hemos usado el modelo de   |
+| caja clásico para dominar las bases. Aquí usamos Flexbox para resolver el   |
+| problema más complejo: "Alinear 3 elementos de distinto tamaño asegurando   |
+| que el del medio quede matemáticamente en el centro de la pantalla".        |
++-----------------------------------------------------------------------------+
+| [🇺🇸 Etimología: 'Flex' -> 🇪🇸 Flexible / Adaptable]                         |
+| Convierte a los hijos en un flujo de goma que se estira y encoge.           |
++-----------------------------------------------------------------------------+
+| 1. 'justify-content: center' -> Centra en el Main Axis (Eje X Horizontal).  |
+| 2. 'align-items: center' -> Centra en el Cross Axis (Eje Y Vertical).       |
++-----------------------------------------------------------------------------+
+*/
+.footer-layout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    font-size: 0.8rem;
+    color: var(--texto-apagado);
+}
+
+/* 
++-----------------------------------------------------------------------------+
+| [🇺🇸 Etimología: 'Flex-Grow' -> 🇪🇸 Capacidad de crecimiento (flex: 1)]      |
++-----------------------------------------------------------------------------+
+| TÉCNICA "FLEX-MIRROR": Al dar 'flex: 1' a ambos pilares laterales, actúan   |
+| como resortes idénticos que ocupan todo el espacio libre disponible. Esto   |
+| "empuja" al corazón para que quede atrapado en el centro absoluto, sin      |
+| importar cuánto texto haya a la izquierda o a la derecha.                   |
++-----------------------------------------------------------------------------+
+*/
+.lado-footer {
+    flex: 1;
+}
+
+.lado-footer:first-child {
+    text-align: right;
+    padding-right: 15px;
+}
+
+.lado-footer:last-child {
+    text-align: left;
+    padding-left: 15px;
+}
+
+.corazon-aura {
+    display: inline-block;
+    padding: 2px;
+    font-size: 1.2rem;
+
+    /* 
+    EFECTO AURA SUTIL:
+    Reducimos drásticamente la opacidad y el radio de desenfoque para que el brillo 
+    sea apenas un halo elegante (mucho más sutil), evitando saturar el footer.
+    
+    +-------------------------------------------------------------------------+
+    | INGENIERÍA ÓPTICA: Drop-Shadow vs Box-Shadow                            |
+    +-------------------------------------------------------------------------+
+    | 'box-shadow' proyecta sombra sobre la "caja rectangular" invisible que  |
+    | rodea al elemento (quedaría un cuadrado brillante).                     |
+    | 'filter: drop-shadow()' es inteligente: analiza los píxeles (canal alfa)|
+    | y dibuja la sombra calcando la geometría exacta del corazón 💙.         |
+    +-------------------------------------------------------------------------+
+    */
+    text-shadow: 0 0 5px rgba(0, 198, 255, 0.3);
+    filter: drop-shadow(0 0 3px rgba(0, 198, 255, 0.2));
+
+    /* Animación de latido para dar vida al cierre del portal */
+    animation: latido-emocional 2s infinite ease-in-out;
+}
+
+
+@keyframes latido-emocional {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.15);
+    }
+}

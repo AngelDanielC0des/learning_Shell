@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "text": "¿En HTML, qué le dice una etiqueta de apertura a su etiqueta de cierre correspondiente? «Oye, que todo lo que hagamos quede contenido entre nosotros. ¿Vale?»."
+    },
+    {
+        "id": 2,
+        "text": "Mi ex es como el CSS: Me pedía espacio y yo siempre le daba un margen de error."
+    },
+    {
+        "id": 3,
+        "text": "Mi ex es como un fetch() de JS: me hizo una promesa, me dejó en await, pasaron los años y aún sigo esperando el .then()."
+    },
+    {
+        "id": 4,
+        "text": "Mi ex es como un UPDATE sin WHERE: me dijo que tenía que cambiar y acabó borrando todo lo que teníamos."
+    },
+    {
+        "id": 5,
+        "text": "Intenté ligar con una programadora, pero no sé de Java."
+    }
+]

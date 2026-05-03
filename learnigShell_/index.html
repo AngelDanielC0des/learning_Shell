@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<!-- 
++-----------------------------------------------------------------------------+
+|                              ANATOMÍA DEL HTML                              |
++=============================================================================+
+| HTML no es un lenguaje de programación matemático; es un "Lenguaje de       |
+| Marcado". Imagina que estás construyendo una casa de ladrillos. HTML es el  |
+| esqueleto: las vigas, los ladrillos y las paredes desnudas.                 |
++-----------------------------------------------------------------------------+
+|                           VOCABULARIO Y SINTAXIS                            |
++-----------------------------------------------------------------------------+
+| HIPERTEXTO     | El concepto mágico: enlaces que permiten saltar a otros    |
+|                | documentos en el mundo.O a otra parte del mismo documento. |
++----------------+------------------------------------------------------------+
+| MARCADO        | (Las Instrucciones): El sistema de etiquetas que define qué|
+|                | es cada cosa y qué está dentro de qué (anidamiento).       |
++----------------+------------------------------------------------------------+
+| SEMÁNTICA      | (El Sentido): Usar la etiqueta que mejor describe el       |
+|                | contenido. Clave para Google y SEO.                        |
++----------------+------------------------------------------------------------+
+| 1. ETIQUETA    | (El Envase): [Tag]. Palabras entre < y >. Le dicen a la    |
+|                | computadora QUÉ tipo de material estás poniendo.           |
++----------------+------------------------------------------------------------+
+| 2. ELEMENTO    | (El Conjunto): La pieza completa.                          |
+|                | -> Normales: Apertura + Contenido + Cierre (<p>Hola</p>).  |
+|                | -> Vacíos: No tienen cierre ni contenido (<img>, <hr>).    |
++----------------+------------------------------------------------------------+
+| 3. ATRIBUTO    | (El Ajuste): Cualidades especiales dentro de la etiqueta   |
+|                | para darle identidad (id), rutas (href) o funciones.       |
++----------------+------------------------------------------------------------+
+| 4. VALOR       | (El Dato): Lo que va entre comillas en el atributo. Es la  |
+|                | respuesta específica (ej: "seccion-contacto", "es-ES").    |
++----------------+------------------------------------------------------------+
+| 5. INDENTACIÓN | (El Mapa Visual): Espacios a la derecha que nos ayudan a   |
+|                | ver qué caja pequeña vive dentro de qué caja grande.       |
++----------------+------------------------------------------------------------+
+| 6. COMENTARIOS | (Notas invisibles): Texto que el navegador ignora.         |
+|                |  Útil para dejar recordatorios como este en tu código      |
++-----------------------------------------------------------------------------+
+-->
+
+<!-- 
+'Document Type' -> 🇪🇸 Tipo de Documento.
+Es un grito de advertencia al navegador web (Chrome, Firefox, Safari, etc). 
+Le advierte: "¡Atención! Prepárate para leer las reglas modernas de HTML versión 5".
+-->
+
+<!-- 
+
+El atributo [🇺🇸 Etimología: 'Language' -> 🇪🇸 Idioma] 'lang="es-ES"' es crucial para la accesibilidad.
+Si un usuario ciego usa un robot que le lee la pantalla en voz alta, esto le indica 
+al robot que debe adoptar un acento de "Español de España". Sin esto, lo leería con acento inglés y sonaría incomprensible.
+-->
+<html lang="es-ES">
+
+<!-- 
++-----------------------------------------------------------------------------+
+| [🇺🇸 Etimología: 'Head' -> 🇪🇸 Cabeza / Cerebro]                             |
++-----------------------------------------------------------------------------+
+| CONCEPTO: La etiqueta <head> es la mente oculta de la web. Nada de lo que   |
+| pongas aquí será visible para el usuario dentro del lienzo de la página.    |
+| Es una centralita telefónica donde conectamos cables invisibles,            |
+| configuraciones y órdenes exclusivas para las máquinas y Google (SEO).      |
++-----------------------------------------------------------------------------+
+| EXCEPCIONES: Los elementos <title> y el favicon, que aunque viven en esta   |
+| mente oculta, sí asoman su presencia al exterior en la pestaña del navegador|
++-----------------------------------------------------------------------------+
+-->
+
+<head>
+    <!-- 
+    +-------------------------------------------------------------------------+
+    | [🇺🇸 Etimología: 'Metadata' -> 🇪🇸 Datos sobre los datos]                |
+    +-------------------------------------------------------------------------+
+    | La etiqueta <meta> da información invisible al navegador.               |
+    +-------------------------------------------------------------------------+
+    | [🇺🇸 Etimología: 'Character Set' -> 🇪🇸 Conjunto de Caracteres]          |
+    +-------------------------------------------------------------------------+
+    | El valor 'utf-8' es el diccionario universal. Sin esta línea, las       |
+    | computadoras no sabrían qué es una letra "ñ" o un tilde "á", e          |
+    | imprimirán horribles símbolos de error en tu texto.                     |
+    +-------------------------------------------------------------------------+
+    -->
+    <meta charset="utf-8">
+
+    <!-- 
+    +-------------------------------------------------------------------------+
+    | [🇺🇸 Etimología: 'Viewport' -> 🇪🇸 Ventana de visualización]             |
+    +-------------------------------------------------------------------------+
+    | Es la "Gafa de Lectura" para móviles y piedra angular de Mobile First.  |
+    | Al usar 'width=device-width', ordenamos a la web: "No te imagines que   |
+    | eres un monitor gigante; reconoce el tamaño real de la pantalla".       |
+    +-------------------------------------------------------------------------+
+    | Sin esto, el móvil muestra la web de escritorio en miniatura, obligando |
+    | al usuario a hacer zoom. Asegura que el diseño sea fluido y legible.    |
+    +-------------------------------------------------------------------------+
+    -->
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 
+    +-------------------------------------------------------------------------+
+    | [🇺🇸 Etimología: 'Title' -> 🇪🇸 Título]                                 |
+    +-------------------------------------------------------------------------+
+    | Es el letrero de neón principal de tu web. El texto que aparecerá       |
+    | impreso arriba del todo, en la pestaña del navegador, y el titular que  |
+    | mostrará Google cuando te busquen.                                      |
+    +-------------------------------------------------------------------------+
+    -->
+    <title>Consola de Aprendizaje</title>
+
+    <!-- 
+    +-------------------------------------------------------------------------+
+    | [🇺🇸 Etimología: 'Description' -> 🇪🇸 Descripción]                      |
+    +-------------------------------------------------------------------------+
+    | Es tu "Discurso de Ventas" de 150 caracteres. El texto gris pequeñito   |
+    | en Google que sirve para convencer al humano de que haga clic.          |
+    +-------------------------------------------------------------------------+
+    -->
+    <meta name="description"
+        content="Dashboard educativo con estética retro-futurista para el dominio de lenguajes de los lenguajes de programación:HTML, CSS, JS, JAVA y SQL.">
+
+    <!-- 
+    +-------------------------------------------------------------------------+
+    | [🇺🇸 Etimología: 'Link' -> 🇪🇸 Enlace / Puente]                         |
+    +-------------------------------------------------------------------------+
+    | [🇺🇸 Etimología: 'Relationship' -> 🇪🇸 Relación] ('rel')                |
+    +-------------------------------------------------------------------------+
+    | [🇺🇸 Etimología: 'Hypertext REFerence' -> 🇪🇸 Referencia de Hipertexto]  |
+    +-------------------------------------------------------------------------+
+    | INGENIERÍA DE FAVICON (Emoji-as-a-Service):                             |
+    | ¿POR QUÉ TODO ESTE CÓDIGO?: Un favicon no puede ser solo un "texto". El |
+    | navegador espera un ARCHIVO de imagen.                                  |
+    +-------------------------------------------------------------------------+
+    | 1. 'data:image/svg+xml': Le decimos al navegador que NO busque un       |
+    |    archivo en el servidor, sino que el "archivo" es el texto que sigue. |
+    | 2. <svg>: Creamos una imagen vectorial matemática en tiempo real.       |
+    | 3. <text>: Dibujamos el emoji 🌐 como si fuera una letra gigante.       |
+    | 4. Codificación URL (URL Encoding): Es el "Estándar de Oro". Codificamos |
+    |    solo los símbolos estructurales (%3C para < y %3E para >). Así, el    |
+    |    editor no ve etiquetas (no sale en ROJO) pero el humano aún puede     |
+    |    leer el emoji y el código.                                            |
+    +-------------------------------------------------------------------------+
+    | 5. INGENIERÍA DE GEOMETRÍA: Los emojis pueden verse "cortados" si el    |
+    |    tamaño es máximo (font-size 90). Lo bajamos a 80 y usamos x/y='50'   |
+    |    con 'text-anchor: middle' para centrarlo como en una diana.           |
+    +-------------------------------------------------------------------------+
+    | NOTA DE SENIOR: Esta técnica es más ligera que Base64 y mantiene la     |
+    | transparencia del código sin sacrificar la limpieza del editor.         |
+    +-------------------------------------------------------------------------+
+    -->
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext x='50' y='50' dominant-baseline='central' text-anchor='middle' font-size='80'%3E🌐%3C/text%3E%3C/svg%3E">
+
+    <!-- 
+    +-------------------------------------------------------------------------+
+    | [🇺🇸 Etimología: 'Pre-connect' -> 🇪🇸 Pre-conectar antes de tiempo]      |
+    +-------------------------------------------------------------------------+
+    | Truco de velocidad. Le susurra al ordenador: "Ve encendiendo el motor   |
+    | porque en un segundo vamos a viajar a los servidores de Google".        |
+    +-------------------------------------------------------------------------+
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <!-- 
+    +-------------------------------------------------------------------------+
+    | [🇺🇸 Etimología: 'Cross-Origin' -> 🇪🇸 Origen Cruzado]                   |
+    +-------------------------------------------------------------------------+
+    | Indica al navegador que la conexión con este servidor externo requiere  |
+    | permisos CORS. Sin él, el navegador podría bloquear la descarga por     |
+    | política de seguridad.                                                  |
+    +-------------------------------------------------------------------------+
+    -->
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- 
+    [🇺🇸 Etimología: 'Style Sheet' -> 🇪🇸 Hoja de Estilos].
+    Traemos volando por internet un paquete que contiene el archivo de la tipografía 
+    'Silkscreen' (esa letra retro que parece de consola antigua).
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- 
+    ¡LA TUBERÍA PRINCIPAL!
+    Conectamos el esqueleto de ladrillos (HTML) con la pintura y los muebles (CSS).
+    Sin esta línea, la web se vería como un documento aburrido en blanco y negro.
+    -->
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<!-- 
++-----------------------------------------------------------------------------+
+| [🇺🇸 Etimología: 'Body' -> 🇪🇸 Cuerpo Físico]                                |
++-----------------------------------------------------------------------------+
+| Aquí abandonamos la mente oculta y entramos en la realidad visible. TODO lo |
+| que quieras que el usuario humano vea con sus ojos o toque con su ratón,    |
+| tiene que vivir encerrado dentro de esta caja fuerte llamada <body>.        |
++-----------------------------------------------------------------------------+
+-->
+
+<body>
+
+    <!-- 
+    +-------------------------------------------------------------------------+
+    | [🇺🇸 Etimología: 'Header' -> 🇪🇸 Encabezado / Cabecera]                 |
+    +-------------------------------------------------------------------------+
+    | CONCEPTO: Sección introductoria de un documento o bloque (<article>).   |
+    | Actúa como el escaparate o la portada del elemento.                     |
+    +-------------------------------------------------------------------------+
+    | ¿CUÁNDO USARLO?: Siempre que necesites agrupar un Titular (h1-h6) con   |
+    | metadatos (fecha, autor, navegación).                                   |
+    +-------------------------------------------------------------------------+
+    | DIFERENCIA CLAVE: No confundir con <head>. El <head> es el "Cerebro",   |
+    | el <header> es la "Cara" visible del diseño gráfico.                    |
+    +-------------------------------------------------------------------------+
+    | ACCESIBILIDAD: Al ser hijo del <body>, el navegador le asigna el rol de |
+    | "Landmark", identificándolo como región de orientación principal.       |
+    +-------------------------------------------------------------------------+
+    -->
+    <header>
+
+        <!-- 
+        +---------------------------------------------------------------------+
+        | [🇺🇸 Etimología: 'Division' -> 🇪🇸 División de espacio]              |
+        +---------------------------------------------------------------------+
+        | La etiqueta <div> es una CAJA DE CARTÓN vacía. No tiene color ni    |
+        | comportamiento. Se usa para agrupar múltiples objetos y moverlos.    |
+        +---------------------------------------------------------------------+
+        | [🇺🇸 Etimología: 'Class' -> 🇪🇸 Clasificación grupal]               |
+        +---------------------------------------------------------------------+
+        | Pegatina (clase) que el archivo CSS usará con el selector "." para  |
+        | pintar o animar el elemento.                                        |
+        +---------------------------------------------------------------------+
+        -->
+        <div class="alineacion-media-vertical">
+
+            <!-- 
+            +-----------------------------------------------------------------+
+            | [🇺🇸 Etimología: 'Heading 1' -> 🇪🇸 Encabezado Supremo Lvl 1]      |
+            +-----------------------------------------------------------------+
+            | Titular gigante principal (portada de periódico). LEY DE ORO:   |
+            | NUNCA uses más de un <h1> por página para no confundir a Google.|
+            +-----------------------------------------------------------------+
+            -->
+            <h1 class="encabezado-con-falla-electrica">
+                <span class="texto-glitch">WEB DEVELOPMENT CON:</span>
+                <!-- 
+                [🇺🇸 Etimología: 'Span' -> 🇪🇸 Contenedor genérico en línea].
+                Permite aislar fragmentos de texto dentro de una misma línea para aplicarles 
+                reglas de estilo independientes sin forzar un salto de línea estructural.
+                -->
+                <span class="texto-estilo-ladrillo">HTML</span>
+                <span class="separador-retro texto-glitch">/</span>
+                <span class="texto-estilo-3d-moderno">CSS</span>
+                <span class="separador-retro texto-glitch">\</span>
+                <span class="texto-estilo-chispa">JS</span>
+                <span class="separador-retro texto-glitch">/</span>
+                <span class="texto-estilo-forja">JAVA</span>
+                <span class="separador-retro texto-glitch">\</span>
+                <span class="texto-estilo-terminal">SQL</span>
+            </h1>
+
+            <!-- 
+            +-----------------------------------------------------------------+
+            | [🇺🇸 Etimología: 'Paragraph' -> 🇪🇸 Párrafo]                      |
+            +-----------------------------------------------------------------+
+            | Contenedor universal para el texto de lectura continua.         |
+            +-----------------------------------------------------------------+
+            | [🇺🇸 Etimología: 'ARIA-Hidden' -> 🇪🇸 ARIA: Oculto]               |
+            +-----------------------------------------------------------------+
+            | 'aria-hidden="true"' indica al lector de pantalla que ignore el |
+            | contenido (por ser adorno visual) para no confundir al usuario. |
+            +-----------------------------------------------------------------+
+            -->
+            <p class="texto-estilo-computadora-antigua texto-azul-terminal" aria-hidden="true">
+                \\_Initializing:State...-&gt;Future_Dev_//
+            </p>
+
+            <!-- 
+            =================================================================
+            ETIQUETAS PROHIBIDAS (DEPRECADAS)
+            =================================================================
+            [🇺🇸 Etimología: 'Marquee' -> 🇪🇸 Marquesina].
+            En 1995 se inventó esta etiqueta mágica para hacer que el texto 
+            se deslizara solo por la pantalla como un letrero de la bolsa de Wall Street.
+            
+            Hoy en día, su uso es un DELITO DE ACCESIBILIDAD.
+            ¿Por qué? Porque el texto que se mueve constantemente distrae severamente a las personas 
+            y marea a los lectores de pantalla. Además, 
+            viola la regla de separar la estructura (HTML) de la estética (CSS).
+            
+            En el código CSS final de este proyecto, enseñamos cómo recrear este efecto 
+            de forma legal usando animaciones modernas de fotogramas.
+            =================================================================
+            -->
+            <!-- 
+            [🇺🇸 Etimología: 'Scroll Amount' -> 🇪🇸 Cantidad de Desplazamiento].
+            El atributo 'scrollamount' controla la velocidad del texto en píxeles por ciclo 
+            de animación. A mayor número, más rápido se desplaza. Es un vestigio de la era 
+            en la que HTML controlaba el comportamiento visual directamente.
+            -->
+            <marquee class="texto-estilo-computadora-antigua texto-azul-terminal" scrollamount="4">
+                \&gt;_System_Logic::Refactor-&gt;Write_Code_for_Humans_Machines_Read_Binary_&lt;/
+            </marquee>
+
+            <!-- 
+            +-----------------------------------------------------------------+
+            | [🇺🇸 Etimología: 'Navigation' -> 🇪🇸 Navegación]                  |
+            +-----------------------------------------------------------------+
+            | Sistema GPS de tu web. Solo debe contener botones de control.   |
+            +-----------------------------------------------------------------+
+            | NOTA PEDAGÓGICA: role="navigation" es REDUNDANTE en <nav>. Lo   |
+            | dejamos como ejemplo didáctico de código que solemos eliminar.  |
+            +-----------------------------------------------------------------+
+            | [🇺🇸 Etimología: 'ARIA-Label' -> 🇪🇸 Etiqueta ARIA invisible]     |
+            +-----------------------------------------------------------------+
+            | Nombre locutado para ayudar a usuarios de lectores de pantalla. |
+            +-----------------------------------------------------------------+
+            -->
+
+            <nav role="navigation" aria-label="Menú de navegación de módulos">
+
+                <!-- 
+                +-------------------------------------------------------------+
+                | [🇺🇸 Etimología: 'Unordered List' -> 🇪🇸 Lista Desordenada]    |
+                +-------------------------------------------------------------+
+                | Analogía: Folio en blanco que agrupa elementos relacionados.|
+                | Dibuja viñetas (puntos) por defecto. Define la semántica y  |
+                | estructura grupal para navegadores y lectores de pantalla.  |
+                +-------------------------------------------------------------+
+                -->
+
+                <ul>
+                    <!-- 
+                    [🇺🇸 Etimología: 'List Item' -> 🇪🇸 Item de la Lista].
+                    -->
+
+                    <li>
+                        <!-- 
+                        +-----------------------------------------------------+
+                        | [🇺🇸 Etimología: 'Anchor' -> 🇪🇸 Ancla]               |
+                        +-----------------------------------------------------+
+                        | El Portal Cuántico: Etiqueta fundamental de la web. |
+                        +-----------------------------------------------------+
+                        | [🇺🇸 Etimología: 'Hypertext REFerence' -> 🇪🇸 Destino] |
+                        +-----------------------------------------------------+
+                        | Con '#html', indica un salto interno (ascensor) al  |
+                        | bloque con el DNI (ID) correspondiente.             |
+                        +-----------------------------------------------------+
+                        -->
+                        <a href="#html">HTML</a>
+                    </li>
+                    <li><a href="#css">CSS</a></li>
+                    <li><a href="#js">JS</a></li>
+                    <li><a href="#java">JAVA</a></li>
+                    <li><a href="#sql">SQL</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+
+    <!-- 
+    +-------------------------------------------------------------------------+
+    | [🇺🇸 Etimología: 'Main' -> 🇪🇸 Principal]                               |
+    +-------------------------------------------------------------------------+
+    | Núcleo semántico del documento (Core Content).                          |
+    | NOTA: Nunca debe haber más de un <main> por código.                     |
+    +-------------------------------------------------------------------------+
+    -->
+    <main>
+
+        <!-- 
+        +---------------------------------------------------------------------+
+        | [🇺🇸 Etimología: 'Section' -> 🇪🇸 Bloque temático]                   |
+        +---------------------------------------------------------------------+
+        | Agrupa contenido relacionado (capítulo de libro). Ayuda al SEO.     |
+        +---------------------------------------------------------------------+
+        | [🇺🇸 Etimología: 'Article' -> 🇪🇸 Artículo independiente]            |
+        +---------------------------------------------------------------------+
+        | Contenido autónomo (libro, tweet, post). Si tiene sentido fuera del |
+        | contexto de la web, es un <article>.                                |
+        +---------------------------------------------------------------------+
+        | [🇺🇸 Etimología: 'Identifier' -> 🇪🇸 Identificador Único]             |
+        +---------------------------------------------------------------------+
+        | ID (DNI): Único y exclusivo. Funciona como pista de aterrizaje para |
+        | enlaces internos y como francotirador para CSS/JS.                  |
+        +---------------------------------------------------------------------+
+        | [🇺🇸 Etimología: 'ARIA-LabelledBy' -> 🇪🇸 Titulado por...]           |
+        +---------------------------------------------------------------------+
+        | Vincula una sección con su título (Cartel de mudanza). Si cambia el |
+        | cartel, cambia el nombre de la caja para el lector de pantalla.     |
+        +---------------------------------------------------------------------+
+        -->
+
+
+        <section id="modulos-aprendizaje" aria-labelledby="titulo-modulos">
+
+            <!-- 
+            [🇺🇸 Etimología: 'Heading 2' -> 🇪🇸 Encabezado de Nivel 2].
+            Son los Subtítulos principales. Como los grandes apartados de Deportes, Política, etc. en el periódico de papel.
+            -->
+            <h2 id="titulo-modulos" class="oculto-para-videntes-leido-por-maquinas">Panel de Módulos Técnicos</h2>
+
+            <!-- 01: HTML -->
+            <!-- 
+            [🇺🇸 Etimología: 'Article' -> 🇪🇸 Artículo]
+            Es un bloque de información independiente y con sentido completo por si solo, AUTÓNOMO. 
+            Es como un post de Instagram o un tweet: si lo recortas y lo pegas en otra parte, sigue teniendo sentido.
+            Tip : Para que sea un artículo de verdad, 
+            casi siempre debe llevar su propio título (<h2>-<h6>).
+            -->
+            <article id="html" class="ficha-informativa-tecnologica" aria-labelledby="titulo-html">
+
+                <!-- 
+                +-------------------------------------------------------------+
+                | [🇺🇸 Etimología: 'Tab Index' -> 🇪🇸 Índice de Tabulación]      |
+                +-------------------------------------------------------------+
+                | Permite que elementos no interactivos (<div>) reciban foco  |
+                | del teclado. '0' sigue el orden natural. Crucial para       |
+                | usuarios que no usan ratón.                                 |
+                +-------------------------------------------------------------+
+                -->
+                <!-- 
+                ACCESIBILIDAD ARIA:
+                Usamos role="button" porque HTML5 prohíbe introducir elementos 
+                complejos (h3, img) dentro de un <button> real.
+                -->
+                <div class="tarjeta-educativa" tabindex="0" role="button" aria-expanded="false">
+
+                    <span class="etiqueta-numerica-flotante" aria-hidden="true">0x01</span>
+
+                    <!-- 
+                    +---------------------------------------------------------+
+                    | [🇺🇸 Etimología: 'Figure' -> 🇪🇸 Figura / Ilustración]    |
+                    +---------------------------------------------------------+
+                    | CONCEPTO: Unidad de contenido autónoma (fotos, código). |
+                    +---------------------------------------------------------+
+                    | <figcaption>: Leyenda vinculada semánticamente.         |
+                    +---------------------------------------------------------+
+                    | <footer>: Océano de créditos, fuentes o licencias.      |
+                    +---------------------------------------------------------+
+                    | NUANCE SEMÁNTICO: El <h3> nombra el bloque; figcaption  |
+                    | describe el objeto. Mantiene jerarquía lógica para SEO. |
+                    +---------------------------------------------------------+
+                    -->
+
+
+
+
+
+
+
+                    <!-- 
+                    Faltaba el h3. Al no tenerlo, el margen que empuja la imagen hacia abajo
+                    no existía, rompiendo la alineación con el resto de las tarjetas.
+                    -->
+                    <h3 id="titulo-html">HTML</h3>
+                    
+                    <figure class="contenedor-imagen-con-aura">
+                        <!-- 
+                        +-----------------------------------------------------+
+                        | EL CLON DE AURA: Técnica "Agnóstica al Color"       |
+                        +-----------------------------------------------------+
+                        | Al duplicar la imagen y desenfocarla (blur) detrás, |
+                        | el aura asume automáticamente los colores del logo. |
+                        | Ideal para logos multicolores (Java). Se adapta sola|
+                        | si cambias la foto sin tocar el CSS.                |
+                        +-----------------------------------------------------+
+                        -->
+                        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-plain.svg"
+                            alt="" class="aura-multicolor" aria-hidden="true">
+
+                        <!-- Imagen original -->
+                        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-plain.svg"
+                            alt="Logotipo naranja de HTML5" class="grafico-representativo">
+                    </figure>
+
+                    <div class="panel-de-datos-escondido">
+                        <div class="texto-dentro-del-panel">
+                            <p><span class="palabra-clave">Arquitectura:</span> El esqueleto lógico que define la web
+                                semántica.</p>
+
+                            <!-- 
+                            +-------------------------------------------------+
+                            | [🇺🇸 Etimología: 'Emphasis' -> 🇪🇸 Énfasis]        |
+                            +-------------------------------------------------+
+                            | Indica al lector de pantalla que cambie el tono |
+                            | de voz para resaltar la palabra clave.          |
+                            +-------------------------------------------------+
+                            -->
+                            <em class="apunte-interesante">
+                                <span class="palabra-clave">Dato 1:</span> HTML es el lenguaje más paciente del mundo.
+                                Si
+                                cometes un error o no cierras una etiqueta, el navegador
+                                no explota.
+                            </em>
+                            <em class="apunte-interesante">
+                                <span class="palabra-clave">Dato 2:</span> Devorador de espacios. Si pones 10 espacios
+                                en el
+                                código, HTML los ignora y solo muestra uno en pantalla.
+                            </em>
+                            <em class="apunte-interesante">
+                                <span class="palabra-clave">Dato 3:</span> No distingue gritos. &lt;BODY&gt; y
+                                &lt;body&gt; funcionan igual,
+                                aunque por orden siempre se usan las minúsculas.
+                            </em>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 02: CSS -->
+            <article id="css" class="ficha-informativa-tecnologica" aria-labelledby="titulo-css">
+                <div class="tarjeta-educativa" tabindex="0" role="button" aria-expanded="false">
+                    <span class="etiqueta-numerica-flotante" aria-hidden="true">0x02</span>
+                    <h3 id="titulo-css">CSS</h3>
+                    <figure class="contenedor-imagen-con-aura">
+                        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-plain.svg"
+                            alt="" class="aura-multicolor" aria-hidden="true">
+                        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-plain.svg"
+                            alt="Logotipo azul de CSS3" class="grafico-representativo">
+                    </figure>
+                    <div class="panel-de-datos-escondido">
+                        <div class="texto-dentro-del-panel">
+                            <p><span class="palabra-clave">Diseño:</span> Transforma ladrillos aburridos en una interfaz
+                                visual moderna.</p>
+                            <em class="apunte-interesante">
+                                <span class="palabra-clave">Dato 1:</span> La mentira de los círculos. En CSS los
+                                círculos
+                                no existen; son cuadrados con las esquinas tan
+                                redondeadas que engañan a tu ojo.
+                            </em>
+                            <em class="apunte-interesante">
+                                <span class="palabra-clave">Dato 2:</span> La última palabra manda. Si das dos órdenes
+                                que
+                                se contradicen, CSS siempre obedecerá a la que esté
+                                escrita más abajo en el archivo.
+                            </em>
+                            <em class="apunte-interesante">
+                                <span class="palabra-clave">Dato 3:</span> Herencia familiar. Órdenes como el color de
+                                texto
+                                se pasan de "padres" a "hijos" automáticamente para
+                                ahorrarte tener que repetir código.
+                            </em>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 03: JAVASCRIPT -->
+            <article id="js" class="ficha-informativa-tecnologica" aria-labelledby="titulo-js">
+                <div class="tarjeta-educativa" tabindex="0" role="button" aria-expanded="false">
+                    <span class="etiqueta-numerica-flotante" aria-hidden="true">0x03</span>
+                    <h3 id="titulo-js">JAVASCRIPT</h3>
+                    <figure class="contenedor-imagen-con-aura">
+                        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-plain.svg"
+                            alt="" class="aura-multicolor" aria-hidden="true">
+                        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-plain.svg"
+                            alt="Logotipo amarillo de JavaScript" class="grafico-representativo">
+                    </figure>
+                    <div class="panel-de-datos-escondido">
+                        <div class="texto-dentro-del-panel">
+                            <p><span class="palabra-clave">Lógica:</span> El sistema nervioso que reacciona a
+                                cada interacción del usuario.</p>
+                            <em class="apunte-interesante">
+                                <span class="palabra-clave">Dato 1:</span> Crisis de identidad. Aunque se llama
+                                JavaScript, su nombre oficial es ECMAScript.
+                            </em>
+                            <em class="apunte-interesante">
+                                <span class="palabra-clave">Dato 2:</span> Dos tipos de nada. 'null' es un vacío que tú
+                                decides poner; 'undefined' es un vacío que aparece cuando no has asignado un valor a la
+                                variable.
+                            </em>
+                            <em class="apunte-interesante">
+                                <span class="palabra-clave">Dato 3:</span> Tipado Dinámico (cambia de tipo), y Débil
+                                (mezcla tipos) y ASI (Automatic Semicolon Insertion): el navegador pone los ";" por ti
+                                si se te olvidan.
+                            </em>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 04: JAVA -->
+            <article id="java" class="ficha-informativa-tecnologica" aria-labelledby="titulo-java">
+                <div class="tarjeta-educativa" tabindex="0" role="button" aria-expanded="false">
+                    <span class="etiqueta-numerica-flotante" aria-hidden="true">0x04</span>
+                    <h3 id="titulo-java">JAVA</h3>
+                    <figure class="contenedor-imagen-con-aura">
+                        <img src="img/Java.svg" alt="" class="aura-multicolor" aria-hidden="true">
+                        <img src="img/Java.svg" alt="Logotipo de Java con taza de café humeante"
+                            class="grafico-representativo">
+                    </figure>
+                    <div class="panel-de-datos-escondido">
+                        <div class="texto-dentro-del-panel">
+                            <p><span class="palabra-clave">Backend:</span> Lenguaje robusto y seguro que orquesta la
+                                lógica desde el servidor y garantiza la comunicación
+                                íntegra con la base de datos.</p>
+                            <em class="apunte-interesante">
+                                <span class="palabra-clave">Dato 1:</span> Origen cafetero. Se iba a llamar 'Oak'
+                                (Roble),
+                                pero eligieron Java por el café de la isla de Java
+                                (Indonesia) que los programadores tomaban a todas horas.
+                            </em>
+                            <em class="apunte-interesante">
+                                <span class="palabra-clave">Dato 2:</span> Tipado Fuerte y Estático. A diferencia de JS,
+                                aquí debes declarar qué es cada cosa (int, String) y
+                                no podrás cambiarlo después. Es pura disciplina.
+                            </em>
+                            <em class="apunte-interesante">
+                                <span class="palabra-clave">Dato 3:</span> Filosofía WORA (Write Once, Run Anywhere).
+                                Gracias
+                                a su Máquina Virtual (JVM), el código que escribes en
+                                Windows funciona en un cohete o una tostadora sin cambios.
+                            </em>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 05: DDBB -->
+            <article id="sql" class="ficha-informativa-tecnologica" aria-labelledby="titulo-sql">
+                <div class="tarjeta-educativa" tabindex="0" role="button" aria-expanded="false">
+                    <span class="etiqueta-numerica-flotante" aria-hidden="true">0x05</span>
+                    <h3 id="titulo-sql">SQL</h3>
+                    <figure class="contenedor-imagen-con-aura">
+                        <img src="img/sql.png" alt="" class="aura-multicolor" aria-hidden="true">
+                        <img src="img/sql.png" alt="Icono vectorial de Base de Datos" class="grafico-representativo">
+                    </figure>
+                    <div class="panel-de-datos-escondido">
+                        <div class="texto-dentro-del-panel">
+                            <p><span class="palabra-clave">Datos:</span> Archiveros inteligentes que guardan y
+                                relacionan toda la información.</p>
+                            <em class="apunte-interesante">
+                                <span class="palabra-clave">Dato 1:</span> No es programación, es una petición (Query).
+                                En
+                                otros lenguajes explicas el CÓMO; en SQL solo pides el
+                                QUÉ (SELECT).
+                            </em>
+                            <em class="apunte-interesante">
+                                <span class="palabra-clave">Dato 2:</span> No distingue gritos. SELECT es igual que
+                                select,
+                                pero usamos mayúsculas por convención para diferenciar
+                                las órdenes de los nombres de tus tablas y columnas.
+                            </em>
+                            <em class="apunte-interesante">
+                                <span class="palabra-clave">Dato 3:</span> Reglas de oro (ACID). Son 4 normas que
+                                garantizan
+                                que si hay un apagón en una transferencia bancaria, el
+                                dinero no se pierda: o se hace TODO o no se hace NADA.
+                                (Atomicity.Consistency.Isolation.Durability.)
+                            </em>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- 
+            +-----------------------------------------------------------------------------+
+            | [🇺🇸 Etimología: 'ARIA-Live' -> 🇪🇸 Región Viva / Actualización Dinámica]     |
+            +-----------------------------------------------------------------------------+
+            | CONCEPTO: El valor 'polite' (educado) le dice al lector de pantalla:        |
+            | "No interrumpas al usuario, pero cuando termines de leer, avísale de que    |
+            | ha aparecido un chiste nuevo". Es cortesía digital para la accesibilidad.   |
+            +-----------------------------------------------------------------------------+
+            -->
+            <div id="contenedor-chiste-dinamico" class="area-salida-consola" aria-live="polite"></div>
+
+            <!-- 
+            +-----------------------------------------------------------------------------+
+            | [🇺🇸 Etimología: 'Template' -> 🇪🇸 Molde Inerte / Plantilla]                  |
+            +-----------------------------------------------------------------------------+
+            | CONCEPTO: El contenido dentro de <template> es INVISIBLE para el navegador. |
+            | No consume recursos de renderizado hasta que JavaScript lo "clona". Es como |
+            | tener un molde de galletas: no es una galleta hasta que lo usas con masa.   |
+            +-----------------------------------------------------------------------------+
+            -->
+            <template id="molde-chiste">
+                <div class="consola-chiste">
+                    <span class="prefix-chiste texto-azul-terminal">_System:Joke_Output-&gt;</span>
+                    <p class="cuerpo-chiste"></p>
+                </div>
+            </template>
+
+            <!-- 
+            +-----------------------------------------------------------------------------+
+            | [ INDICADORES DE HARDWARE Y ESTADO DEL SISTEMA ]                            |
+            +-----------------------------------------------------------------------------+
+            | 1. <kbd> (Keyboard Input): Etiqueta semántica que identifica teclas físicas.|
+            | 2. ID 'status-log-chiste': Mensaje de depuración que solo se activa cuando  |
+            |    la lógica del chiste está en ejecución (Inyección Dinámica).             |
+            +-----------------------------------------------------------------------------+
+            -->
+            <div id="status-log-chiste" class="status-terminal">_System:Runtime-&gt;Joke_Module-&gt;::activate</div>
+
+            <div class="guia-comandos-teclado">
+                <!-- 
+                ACCESIBILIDAD (ARIA-LABEL):
+                Aunque el vidente ve la letra "S", para un lector de pantalla es solo un 
+                carácter. Usamos 'aria-label' para dar una orden clara al sistema de voz.
+                'data-title' activa nuestro tooltip personalizado de neón.
+                -->
+                <kbd id="tecla-s" class="tecla-mecanica" data-title="Detener salida de consola (S)"
+                    aria-label="Tecla S: Detener salida de consola">S</kbd>
+
+                <kbd id="tecla-j" class="tecla-mecanica" data-title="Siguiente chiste de sistema (J)"
+                    aria-label="Tecla J: Siguiente chiste de sistema">J</kbd>
+            </div>
+        </section>
+
+
+        <!-- 
+        +---------------------------------------------------------------------+
+        | [🇺🇸 Etimología: 'Section' -> 🇪🇸 Sección temática]                   |
+        +---------------------------------------------------------------------+
+        | Segunda sección mayor. Agrupa recursos externos del curso.          |
+        +---------------------------------------------------------------------+
+        | ¿POR QUÉ 'aria-label' EN VEZ DE 'aria-labelledby'?                  |
+        +---------------------------------------------------------------------+
+        | Usamos 'aria-label' porque el título (<h2>) es decorativo y no      |
+        | describe bien la sección para un lector de pantalla. Permite una    |
+        | descripción humana sin alterar el diseño visual.                    |
+        +---------------------------------------------------------------------+
+        -->
+        <section id="recursos" aria-label="Recursos externos vinculados">
+            <div class="alineacion-media-vertical">
+
+                <h2 class="rotulo-secundario texto-azul-terminal">_System::Linker->External_Assets</h2>
+
+                <ul class="lista-de-enlaces-externos">
+                    <!-- 
+                    +---------------------------------------------------------+
+                    | [🇺🇸 Etimología: 'Title' -> 🇪🇸 Título flotante]         |
+                    +---------------------------------------------------------+
+                    | Genera un tooltip visual para humanos con ratón.        |
+                    +---------------------------------------------------------+
+                    | [🇺🇸 Etimología: 'Target' -> 🇪🇸 Objetivo / Destino]     |
+                    +---------------------------------------------------------+
+                    | El valor '_blank' ordena al navegador abrir el enlace   |
+                    | en una PESTAÑA NUEVA, manteniendo nuestra web abierta.  |
+                    +---------------------------------------------------------+
+                    | [🇺🇸 Etimología: 'Data-Title' -> 🇪🇸 Título de Datos]    |
+                    +---------------------------------------------------------+
+                    | Usamos 'data-title' en lugar de 'title' para ANULAR el  |
+                    | tooltip feo del sistema y poder diseñar uno propio con  |
+                    | CSS (bordes redondeados y neón azul) consistente.       |
+                    +---------------------------------------------------------+
+                    -->
+                    <li>
+                        <a href="https://www.jscamp.dev/" class="boton-mecanico-interactivo" target="_blank"
+                            rel="noopener noreferrer" aria-label="Bootcamp completo de JS, HTML, CSS y mucho más"
+                            data-title="bootcamp html/css,javascript,y más">BOOTCAMP</a>
+                    </li>
+
+                    <!-- 
+                    +---------------------------------------------------------+
+                    | [🇺🇸 Etimología: 'Button' -> 🇪🇸 Botón]                  |
+                    +---------------------------------------------------------+
+                    | Ejecuta una ACCIÓN en la misma página (abrir menús).    |
+                    +---------------------------------------------------------+
+                    | [🇺🇸 Etimología: 'ARIA Has Popup' -> 🇪🇸 Ventana Emergente]|
+                    +---------------------------------------------------------+
+                    | Avisa al usuario ciego que hay opciones ocultas.        |
+                    +---------------------------------------------------------+
+                    -->
+                    <li class="item-desplegable">
+                        <button class="boton-mecanico-interactivo" aria-label="Menú de juegos para practicar CSS"
+                            data-title="clicka para ver juegos" aria-haspopup="true">JUEGOS_CSS ▾</button>
+                        <!-- 
+                        +-----------------------------------------------------+
+                        | [Semántica de Listas Anidadas]                      |
+                        +-----------------------------------------------------+
+                        | Crea una JERARQUÍA. Los enlaces son HIJOS de la     |
+                        | categoría superior. Ayuda a la navegación lógica.   |
+                        +-----------------------------------------------------+
+                        -->
+                        <ul class="sub-lista-recursos">
+                            <li>
+                                <a href="https://flukeout.github.io/" class="boton-mecanico-interactivo" target="_blank"
+                                    rel="noopener noreferrer"
+                                    data-title="juego para practicar selectores css">CSS_FROGS</a>
+                            </li>
+                            <li>
+                                <a href="https://cssbattle.dev/play/bxeCtMaJJEs3KcDlKtkI"
+                                    class="boton-mecanico-interactivo" target="_blank" rel="noopener noreferrer"
+                                    data-title="juego para practicar css">CSS_BATTLE</a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li>
+                        <a href="https://www.aprendejavascript.dev/" class="boton-mecanico-interactivo" target="_blank"
+                            rel="noopener noreferrer" aria-label="Curso interactivo de JavaScript"
+                            data-title="curso javascript interactivo">APRENDE_JS</a>
+                    </li>
+
+                    <li>
+                        <a href="https://codegym.cc/" class="boton-mecanico-interactivo" target="_blank"
+                            rel="noopener noreferrer" aria-label="Curso interactivo de Java"
+                            data-title="curso de java interactivo">CODEGYM_JAVA</a>
+                    </li>
+
+                    <li>
+                        <a href="https://www.aprendesql.dev/" class="boton-mecanico-interactivo" target="_blank"
+                            rel="noopener noreferrer" aria-label="Curso interactivo de SQL"
+                            data-title="curso de sql interactivo">APRENDE_SQL</a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+
+    </main>
+
+    <!-- 
+    +-------------------------------------------------------------------------+
+    | [🇺🇸 Etimología: 'Footer' -> 🇪🇸 Pie de página]                         |
+    +-------------------------------------------------------------------------+
+    | Bloque de cierre semántico (autoría, contacto, copyright).              |
+    +-------------------------------------------------------------------------+
+    | ACCESIBILIDAD: Al ser hijo de <body>, es un Landmark 'contentinfo'.     |
+    +-------------------------------------------------------------------------+
+    | NOTA PEDAGÓGICA: role="contentinfo" es REDUNDANTE.                      |
+    +-------------------------------------------------------------------------+
+    -->
+    <footer role="contentinfo">
+        <div class="alineacion-media-vertical">
+            <!-- 
+            +-----------------------------------------------------------------+
+            | [🇺🇸 ARQUITECTURA DE EQUILIBRIO: Flex-Centering]                 |
+            +-----------------------------------------------------------------+
+            | PROBLEMA: "Hecho con" es más corto que el nombre del autor.     |
+            | Si usamos text-align: center, el corazón queda desplazado.      |
+            | SOLUCIÓN: Dividimos en 3 bloques. Los laterales tienen 'flex: 1',|
+            | lo que obliga al bloque central (corazón) a estar en el centro  |
+            | matemático exacto de la pantalla (50vw).                        |
+            +-----------------------------------------------------------------+
+            -->
+            <p class="footer-layout">
+                <span class="lado-footer">Hecho con</span>
+                <span class="corazon-aura">💙</span>
+                <span class="lado-footer">Ángel Daniel 1994 &copy;</span>
+            </p>
+        </div>
+    </footer>
+
+    <!-- 
+    +-------------------------------------------------------------------------+
+    | [🇺🇸 Etimología: 'Script' -> 🇪🇸 Guion / Libreto]                       |
+    +-------------------------------------------------------------------------+
+    | EL MOTOR DE LÓGICA (JS): CONTROL DE ESTADOS DINÁMICOS.                  |
+    | Añade "memoria" (toggle) a la estructura estática de HTML/CSS.          |
+    +-------------------------------------------------------------------------+
+    | [ ARQUITECTURA DE CARGA: DOM Ready ]                                    |
+    | ¿POR QUÉ AL FINAL DEL <body> Y NO ARRIBA EN EL <head>?:                 |
+    | Este es el 'Bug nº1' de los desarrolladores novatos. Si JavaScript      |
+    | intenta buscar un botón antes de que el navegador lo haya dibujado en   |
+    | la pantalla, dará un error (null). Poner el script aquí abajo obliga a  |
+    | la máquina a leer y construir todo el HTML primero.                     |
+    +-------------------------------------------------------------------------+
+    -->
+    <script>
+        /* 
+        +---------------------------------------------------------------------+
+        | SISTEMA DE CONMUTACIÓN (Toggle) DE ESTADOS                          |
+        +---------------------------------------------------------------------+
+        | ARQUITECTURA: Event Delegation (Delegación de Eventos).             |
+        | Un solo vigilante (document) pregunta: "¿Dónde fue el golpe?".      |
+        +---------------------------------------------------------------------+
+        | [🇺🇸 Etimología: 'Event Bubbling' -> 🇪🇸 Burbujeo de Eventos]        |
+        | El click viaja hacia arriba desde el origen hasta el 'document'.    |
+        +---------------------------------------------------------------------+
+        */
+
+        /* 
+        +---------------------------------------------------------------------+
+        | [🇺🇸 Etimología: 'Document' -> 🇪🇸 El mapa del DOM]                 |
+        +---------------------------------------------------------------------+
+        | El 'document' es el objeto raíz que representa todo el HTML en la   |
+        | memoria del navegador. Es el puente entre JS y tus etiquetas.       |
+        +---------------------------------------------------------------------+
+        | [🇺🇸 Etimología: 'Add Event Listener' -> 🇪🇸 Añadir un vigilante]   |
+        +---------------------------------------------------------------------+
+        | Registra un "escuchador" que se queda "despierto" esperando a que    |
+        | ocurra un evento (click) para disparar la lógica.                   |
+        +---------------------------------------------------------------------+
+        */
+        document.addEventListener('click', function (evento) {
+
+            // --- 1. TARJETAS EDUCATIVAS ---
+            /* 
+            +-----------------------------------------------------------------+
+            | [🇺🇸 Etimología: 'Target' -> 🇪🇸 El disparador del click]        |
+            +-----------------------------------------------------------------+
+            | 'evento.target' es la referencia al elemento exacto donde el    |
+            | usuario puso el dedo o el puntero.                              |
+            +-----------------------------------------------------------------+
+            | [🇺🇸 Etimología: 'Closest' -> 🇪🇸 El ancestro más cercano]       |
+            +-----------------------------------------------------------------+
+            | Sube por el árbol de etiquetas buscando al padre o abuelo que   |
+            | tenga esa clase. Si no hay éxito, devuelve 'null' (nada).       |
+            +-----------------------------------------------------------------+
+            */
+            var tarjeta = evento.target.closest('.tarjeta-educativa');
+            if (tarjeta) {
+                // Si el click fue en un enlace real (<a>), lo dejamos navegar
+                if (evento.target.closest('a')) return; // 'return' = "Deja de ejecutar. Vete."
+                // Si el click fue dentro del panel de datos ya visible, no conmutamos
+                // (el usuario puede estar leyendo o seleccionando texto)
+                if (evento.target.closest('.panel-de-datos-escondido')) return;
+                /* 
+                +-------------------------------------------------------------+
+                | [🇺🇸 Etimología: 'Toggle' -> 🇪🇸 Interruptor On/Off]         |
+                +-------------------------------------------------------------+
+                | Gestión inteligente de clases: Si no existe, la añade; si   |
+                | ya existe, la elimina automáticamente.                      |
+                +-------------------------------------------------------------+
+                | [🇺🇸 Etimología: 'Blur' -> 🇪🇸 Quitar el foco]               |
+                +-------------------------------------------------------------+
+                | Obliga al elemento a soltar el foco. Evita que estilos de   |
+                | teclado (:focus) queden "pegados" tras el click.            |
+                +-------------------------------------------------------------+
+                */
+                const estaAbierta = tarjeta.classList.toggle('is-open');
+                tarjeta.setAttribute('aria-expanded', estaAbierta);
+                tarjeta.blur();
+                return;
+            }
+
+            // --- 2. MENÚ DESPLEGABLE ---
+            var desplegable = evento.target.closest('.item-desplegable');
+            if (desplegable) {
+                if (evento.target.closest('a')) return;
+                desplegable.classList.toggle('is-open');
+                return;
+            }
+
+            // --- 3. CLICK EXTERIOR ---
+            /* 
+            +-----------------------------------------------------------------+
+            | [🇺🇸 Etimología: 'Query Selector All' -> 🇪🇸 Seleccionar todos]  |
+            +-----------------------------------------------------------------+
+            | Genera una lista con TODOS los elementos que coincidan.         |
+            +-----------------------------------------------------------------+
+            | [🇺🇸 Etimología: 'For Each' -> 🇪🇸 Para cada uno]                |
+            +-----------------------------------------------------------------+
+            | Recorre la lista elemento por elemento y ejecuta la orden de    |
+            | eliminar la clase para cerrar los menús abiertos.               |
+            +-----------------------------------------------------------------+
+            */
+            document.querySelectorAll('.item-desplegable.is-open').forEach(function (el) {
+                el.classList.remove('is-open');
+            });
+        });
+
+        // --- 4. MÓDULO DE CHISTES (DYNAMIC FETCH & FALLBACK) ---
+        /* 
+        +-----------------------------------------------------------------------------+
+        | [ ESTRATEGIA DE RESILIENCIA: Fetch API con Fallback Local ]                 |
+        +-----------------------------------------------------------------------------+
+        | 1. FETCH (Promesa): Intentamos leer el archivo 'data/jokes.json'.           |
+        | 2. LIVE SERVER: Si usas esta extensión, el protocolo cambia de 'file://' a  |
+        |    'http://', permitiendo la carga dinámica sin errores de seguridad.       |
+        | 3. FALLBACK: Si el fetch falla (CORS), usamos los datos de seguridad        |
+        |    incrustados abajo para que la web nunca se rompa.                        |
+        +-----------------------------------------------------------------------------+
+        */
+        let listaJokes = [
+            { "id": 1, "text": "¿En HTML, qué le dice una etiqueta de apertura a su etiqueta de cierre? «Oye, que todo lo que hagamos quede contenido entre nosotros»." },
+            { "id": 2, "text": "Mi ex es como el CSS: Me pedía espacio y yo siempre le daba un margen de error." },
+            { "id": 3, "text": "Mi ex es como un fetch(): me hizo una promesa, me dejó en await y aún sigo esperando el .then()." },
+            { "id": 4, "text": "Mi ex es como un UPDATE sin WHERE: me dijo que tenía que cambiar y acabó borrando todo lo que teníamos." },
+            { "id": 5, "text": "Intenté ligar con una programadora, pero no sé de Java." }
+        ];
+
+        async function sincronizarDatosExternos() {
+            /* 
+            +-------------------------------------------------------------------------+
+            | [🇺🇸 Etimología: 'Try / Catch' -> 🇪🇸 Intentar / Capturar]               |
+            +-------------------------------------------------------------------------+
+            | GESTIÓN DE ERRORES: La programación en red es "peligrosa". El archivo   |
+            | puede no existir, el servidor puede estar caído o el CORS puede        |
+            | bloquearnos. 'Try' nos permite ejecutar código arriesgado, y 'Catch'    |
+            | es la red de seguridad que captura el error para que la web NO muera.   |
+            +-------------------------------------------------------------------------+
+            */
+            try {
+                /* 
+                [🇺🇸 Etimología: 'Fetch' -> 🇪🇸 Ir a buscar / Traer]
+                [🇺🇸 Etimología: 'Await' -> 🇪🇸 Esperar (a que termine la tarea)]
+                */
+                const respuesta = await fetch('data/jokes.json');
+
+                /* 
+                [🇺🇸 Etimología: 'OK' -> 🇪🇸 Respuesta exitosa (Status 200)]
+                El servidor responde con números. 200 es "Todo bien", 404 es "No 
+                encontrado". La propiedad '.ok' es un atajo para saber que la 
+                misión de búsqueda fue exitosa.
+                */
+                if (respuesta.ok) {
+                    /* 
+                    [🇺🇸 Etimología: 'JSON' -> 🇪🇸 JavaScript Object Notation]
+                    Es el "Esperanto" de los datos. Un formato de texto que tanto 
+                    JS como otros lenguajes entienden perfectamente para 
+                    intercambiar listas y objetos.
+                    */
+                    listaJokes = await respuesta.json();
+                    console.log("System:Logic->Data_Sync::Success (LiveServer Mode)");
+                }
+            } catch (error) {
+                console.warn("System:Logic->Data_Sync::Blocked (CORS/File Mode). Using Local Fallback.");
+            }
+        }
+        // Disparamos la sincronización al cargar el script
+        sincronizarDatosExternos();
+
+        let indiceActual = 0;
+        const areaSalida = document.getElementById('contenedor-chiste-dinamico');
+        const molde = document.getElementById('molde-chiste');
+        const statusLog = document.getElementById('status-log-chiste');
+
+        /* 
+        +-----------------------------------------------------------------------------+
+        | [🇺🇸 Etimología: 'Event' -> 🇪🇸 El mensajero de la acción]                   |
+        +-----------------------------------------------------------------------------+
+        | Cuando ocurre un suceso (click, tecla), el navegador genera un objeto       |
+        | 'e' o 'evento'. Es una "mochila" llena de datos: ¿Qué tecla pulsaste?       |
+        | ¿En qué milisegundo? ¿En qué coordenada X/Y estaba el ratón?                |
+        +-----------------------------------------------------------------------------+
+        */
+        document.addEventListener('keydown', function (e) {
+            // Protección Senior: No activar chistes si el usuario está escribiendo en un campo
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            /* 
+            SOPORTE DE TECLADO ARIA:
+            Al disfrazar un <div> de botón, perdemos el comportamiento nativo de las teclas.
+            Las capturamos aquí para devolverle la funcionalidad a usuarios sin ratón.
+            */
+            if (e.key === 'Enter' || e.key === ' ') {
+                var tarjetaActiva = e.target.closest('.tarjeta-educativa');
+                if (tarjetaActiva) {
+                    e.preventDefault(); // Evita que el Espacio haga scroll hacia abajo
+                    const estaAbierta = tarjetaActiva.classList.toggle('is-open');
+                    tarjetaActiva.setAttribute('aria-expanded', estaAbierta);
+                }
+            }
+
+            const tecla = e.key.toLowerCase();
+
+            // Retroalimentación visual de hardware (kbd)
+            const elementoTecla = document.getElementById(`tecla-${tecla}`);
+            if (elementoTecla) {
+                /* 
+                PEDAGOGÍA DE LA SINCRONIZACIÓN (La ilusión de la física):
+                Si quitamos la clase 'is-pressed' en el mismo milisegundo en 
+                que la ponemos, el navegador "ahorra" energía y ni siquiera 
+                llega a dibujar el brillo. 
+                Usamos 100ms de 'estancamiento' para forzar al ojo humano a 
+                ver el impacto visual. Solo al quitar la clase tras ese 
+                tiempo, el CSS puede calcular el desvanecimiento lento de 1.5s.
+                */
+                elementoTecla.classList.add('is-pressed');
+                setTimeout(() => {
+                    elementoTecla.classList.remove('is-pressed');
+                }, 100);
+            }
+
+            if (tecla === 'j') {
+                ejecutarFlujoChiste();
+            } else if (tecla === 's') {
+                desactivarSalida();
+            }
+        });
+
+        function ejecutarFlujoChiste() {
+            if (listaJokes.length === 0) return;
+
+            const chisteExistente = areaSalida.querySelector('.consola-chiste');
+
+            if (chisteExistente) {
+                // Transición de salida antes de cambiar el contenido
+                chisteExistente.classList.remove('is-active');
+                setTimeout(() => inyectarNuevoChiste(), 400); // Espera a que termine el fade-out
+            } else {
+                inyectarNuevoChiste();
+            }
+        }
+
+        function inyectarNuevoChiste() {
+            areaSalida.innerHTML = ''; // Limpiamos el contenedor
+
+            // Activamos el mensaje de estado del sistema
+            statusLog.classList.add('is-visible');
+
+            // Clonamos el template
+            const instancia = molde.content.cloneNode(true);
+            const parrafo = instancia.querySelector('.cuerpo-chiste');
+            const caja = instancia.querySelector('.consola-chiste');
+
+            // Asignamos el texto y avanzamos el índice
+            parrafo.textContent = listaJokes[indiceActual].text;
+            areaSalida.appendChild(instancia);
+
+            /* 
+            INGENIERÍA DE ANIMACIÓN (Double RequestAnimationFrame):
+            Para que una transición CSS funcione al insertar un elemento nuevo, el navegador 
+            necesita "pintar" al menos un frame con el estado inicial (opacity 0). 
+            Usamos un doble rAF para forzar al navegador a registrar la existencia 
+            de la caja antes de añadir la clase '.is-active', garantizando la fluidez 
+            desde el primer chiste.
+            */
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    const nuevaCaja = areaSalida.querySelector('.consola-chiste');
+                    if (nuevaCaja) nuevaCaja.classList.add('is-active');
+                });
+            });
+
+            // Ciclo infinito de índice
+            indiceActual = (indiceActual + 1) % listaJokes.length;
+        }
+
+        function desactivarSalida() {
+            const chiste = areaSalida.querySelector('.consola-chiste');
+            if (chiste) {
+                chiste.classList.remove('is-active');
+                // Desactivamos el mensaje de estado
+                statusLog.classList.remove('is-visible');
+                // Eliminamos del DOM tras la animación para ahorrar memoria
+                setTimeout(() => areaSalida.innerHTML = '', 400);
+            }
+        }
+    </script>
+
+</body>
+
+</html>
