@@ -120,4 +120,4 @@ Este proyecto está organizado como una guía de estudio. Aquí tienes el mapa g
 > **Nota para el estudiante**: no tengas miedo de romper el código. La web se aprende inspeccionando, probando y entendiendo por qué una caja está donde está.
 
 ---
-**Hecho con 💙 por Ángel Daniel & Antigravity AI**
+**Hecho con 💙 por Ángel Daniel**
